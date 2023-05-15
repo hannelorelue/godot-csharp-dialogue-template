@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccypfdl5s06e1"]
+
+[ext_resource type="Texture2D" uid="uid://bk86dfvs58sua" path="res://assets/character-name-box.png" id="1_5dlsd"]
+
+[sub_resource type="Gradient" id="Gradient_gjp8h"]
+colors = PackedColorArray(0, 0, 0, 1, 0.168627, 0.168627, 0.168627, 0.768627)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wb0hl"]
+gradient = SubResource("Gradient_gjp8h")
+fill_from = Vector2(0.369565, 0.195652)
+fill_to = Vector2(0.508696, 1)
+
+[node name="TextBox" type="TextureRect"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -292.0
+offset_right = 4.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("GradientTexture2D_wb0hl")
+
+[node name="NameBackground" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 45.0
+offset_top = -45.0
+offset_right = 533.0
+offset_bottom = 66.0
+texture = ExtResource("1_5dlsd")

@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccypfdl5s06e1"]
+[gd_scene load_steps=11 format=3 uid="uid://ccypfdl5s06e1"]
 
+[ext_resource type="Theme" uid="uid://unxtpgxp8f3q" path="res://themes/defaultTheme.tres" id="1_3c58p"]
 [ext_resource type="Texture2D" uid="uid://bk86dfvs58sua" path="res://assets/character-name-box.png" id="1_5dlsd"]
+[ext_resource type="Script" path="res://scripts/TextBox.cs" id="1_cwc2o"]
+[ext_resource type="Texture2D" uid="uid://bncnwitqhcte" path="res://assets/arrow.png" id="3_gjgox"]
 
 [sub_resource type="Gradient" id="Gradient_gjp8h"]
 colors = PackedColorArray(0, 0, 0, 1, 0.168627, 0.168627, 0.168627, 0.768627)
@@ -9,6 +12,158 @@ colors = PackedColorArray(0, 0, 0, 1, 0.168627, 0.168627, 0.168627, 0.768627)
 gradient = SubResource("Gradient_gjp8h")
 fill_from = Vector2(0.369565, 0.195652)
 fill_to = Vector2(0.508696, 1)
+
+[sub_resource type="Animation" id="Animation_s4uep"]
+resource_name = "fade_in"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.22),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NameBackground:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.19, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("NameBackground:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.39, 0.46),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-103, -45), Vector2(-103, -45), Vector2(45, -45)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RichTextLabel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.17, 0.36, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pwqgg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NameBackground:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("NameBackground:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(45, -45)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RichTextLabel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4lfsx"]
+resource_name = "fade_out"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.31, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NameBackground:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.23),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RichTextLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.28),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t3ph0"]
+_data = {
+"RESET": SubResource("Animation_pwqgg"),
+"fade_in": SubResource("Animation_s4uep"),
+"fade_out": SubResource("Animation_4lfsx")
+}
 
 [node name="TextBox" type="TextureRect"]
 anchors_preset = 12
@@ -21,7 +176,9 @@ offset_right = 4.0
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("1_3c58p")
 texture = SubResource("GradientTexture2D_wb0hl")
+script = ExtResource("1_cwc2o")
 
 [node name="NameBackground" type="TextureRect" parent="."]
 layout_mode = 0
@@ -30,3 +187,61 @@ offset_top = -45.0
 offset_right = 533.0
 offset_bottom = 66.0
 texture = ExtResource("1_5dlsd")
+
+[node name="NameLabel" type="Label" parent="NameBackground"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.107
+anchor_top = 0.036
+anchor_right = 0.107
+anchor_bottom = 0.036
+offset_left = 28.784
+offset_top = 5.004
+offset_right = 361.784
+offset_bottom = 72.004
+theme_override_font_sizes/font_size = 44
+text = "Name here"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 380.0
+offset_top = 54.0
+offset_right = 1578.0
+offset_bottom = 265.0
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "Sample text here"
+
+[node name="BlinkingArrow" type="Control" parent="RichTextLabel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Arrow" type="TextureRect" parent="RichTextLabel/BlinkingArrow"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("3_gjgox")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_t3ph0")
+}

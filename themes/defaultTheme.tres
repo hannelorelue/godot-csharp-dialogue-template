@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://unxtpgxp8f3q"]
+
+[ext_resource type="FontFile" uid="uid://ddqglq67wlyoq" path="res://assets/Montserrat-ExtraBold.ttf" id="1_5exnw"]
+
+[resource]
+default_font = ExtResource("1_5exnw")

@@ -39,6 +39,7 @@ public partial class TextBox : TextureRect
 		_richTextLabel.Text = "";
 		_richTextLabel.VisibleCharacters  = 0;
 		FadeInAsync();
+		// todo waiting for fadein to finish
 		Display("Hello!", "Sophia");
 
 	}

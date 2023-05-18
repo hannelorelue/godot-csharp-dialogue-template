@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class TextBox : TextureRect
 {
@@ -26,7 +27,7 @@ public partial class TextBox : TextureRect
 	private AnimationPlayer _aniPlayer;
 	
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	public async override void _Ready()
 	{
 		//Hide()
 		_richTextLabel = GetNode<RichTextLabel>("RichTextLabel");
@@ -38,9 +39,9 @@ public partial class TextBox : TextureRect
 		_nameLabel.Text = "";
 		_richTextLabel.Text = "";
 		_richTextLabel.VisibleCharacters  = 0;
-		FadeInAsync();
+		await FadeInAsync();
 		// todo waiting for fadein to finish
-		Display("Hello!", "Sophia");
+		Display("Hello! My name is Sophia! How are you?", "Sophia");
 
 	}
 
@@ -49,7 +50,7 @@ public partial class TextBox : TextureRect
 	{
 	}
 
-	private void unhandledInput(InputEvent @event)
+	public override void _UnhandledInput(InputEvent @event)
 	{
 		if (@event.IsActionPressed("ui_accept") == true)
 		{
@@ -60,13 +61,14 @@ public partial class TextBox : TextureRect
 			{
 				_tween.Kill();
 				_richTextLabel.VisibleCharacters = -1;
+				_blinkingArrow.Show();
 			}
 		}
 	}
 
-	public void Display(string Text, string characterName = "", float speed = -1) 
+	async void Display(string Text, string characterName = "", float speed = -1) 
 	{
-		SetBBCodeText(Text);
+		
 		if (speed == -1) 
 		{
 			speed = DisplaySpeed;
@@ -79,10 +81,12 @@ public partial class TextBox : TextureRect
 		{
 			_nameLabel.Text = characterName;
 		}
-
+	
+		await SetBBCodeTextAsync(Text);
+		await beginDialogueDisplayAsync();
 	}
 
-	async void SetBBCodeText(string Text) 
+	async Task SetBBCodeTextAsync(string Text) 
 	{
 		_bbcodeText = Text;
 		if (IsInsideTree() != true) 
@@ -91,25 +95,23 @@ public partial class TextBox : TextureRect
 		}
 		_blinkingArrow.Hide();
 		_richTextLabel.Text = _bbcodeText;
-		CallDeferred(nameof(beginDialogueDisplay));
-		
 	}
 
 
-	async void FadeInAsync()
+	async Task FadeInAsync()
 	{
 		_aniPlayer.Play("fade_in");
 		await ToSignal(_aniPlayer, "animation_finished");
 	}
 
 
-	async void FadeOutAsync()
+	async Task FadeOutAsync()
 	{
 		_aniPlayer.Play("fade_out");
 		await ToSignal(_aniPlayer, "animation_finished");
 	}
 
-	async void beginDialogueDisplay() 
+	async Task beginDialogueDisplayAsync() 
 	{
 		int characterCount = _richTextLabel.GetTotalCharacterCount();
 		_tween = GetTree().CreateTween();

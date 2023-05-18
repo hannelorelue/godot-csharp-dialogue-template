@@ -43,7 +43,7 @@ namespace VisualNovelMono
             return Images[Expression];
         }
     
-        public Texture2D GetDefaultImage(string Expression) 
+        public Texture2D GetDefaultImage() 
         {
             return Images[DefaultImage];
         }

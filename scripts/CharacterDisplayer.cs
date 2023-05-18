@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using VisualNovelMono;
+using System.Threading.Tasks;
 
 public partial class CharacterDisplayer : Node2D
 {
@@ -146,7 +147,7 @@ public partial class CharacterDisplayer : Node2D
         sprite.Modulate = COLOR_WHITE_TRANSPARENT;
     }
 
-    async void _Leave(string fromSide, Sprite2D  sprite)
+    async Task _Leave(string fromSide, Sprite2D  sprite)
     {
         float offset = 0.0f;
 
@@ -174,16 +175,4 @@ public partial class CharacterDisplayer : Node2D
 		await ToSignal(_tween, "finished");
     }
 
-    // public void _UnhandledInput(InputEvent @event)
-    // {
-    //     if (@event.IsActionPressed("ui_accept") && _tween.IsActive())
-    //     {
-    //         _tween.Seek(float.PositiveInfinity);
-    //     }
-    // }
-
-    // public void _OnTweenTweenAllCompleted()
-    // {
-    //     EmitSignal("DisplayFinished");
-    // }
 }

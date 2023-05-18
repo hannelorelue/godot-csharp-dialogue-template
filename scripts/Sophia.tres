@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://81h7a7g5ijm3"]
+
+[ext_resource type="Texture2D" uid="uid://b7qjb2yyo0clj" path="res://assets/Sophia.png" id="1_fk72x"]
+[ext_resource type="Script" path="res://scripts/Character.cs" id="1_t4xlx"]
+
+[resource]
+script = ExtResource("1_t4xlx")
+Id = "character_id"
+DisplayName = "Display Name"
+Bio = ""
+Age = 0
+DefaultImage = "neutral"
+Images = {
+"neutral": ExtResource("1_fk72x")
+}

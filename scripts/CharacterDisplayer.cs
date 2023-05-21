@@ -1,8 +1,8 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using VisualNovelMono;
 using System.Threading.Tasks;
+using VisualNovelMono;
 
 public partial class CharacterDisplayer : Node2D
 {
@@ -54,7 +54,7 @@ public partial class CharacterDisplayer : Node2D
         _middleSprite.Hide();
         _rightSprite.Hide();
         _outerRightSprite.Hide();
-
+        GDScript Character = (GDScript)GD.Load("res://scripts/Character.gd");
     }
 
     public void Display(Character character, string side, string expression = "", string animation = "", bool isMirrored = false, int spriteZIndex = 0)

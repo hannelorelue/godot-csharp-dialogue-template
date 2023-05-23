@@ -1,5 +1,8 @@
 using Godot;
 using System;
+using System.IO;
+using VisualNovelMono;
+using System.Collections.Generic;
 
 public partial class ResourceDB : Node
 {
@@ -9,8 +12,8 @@ public partial class ResourceDB : Node
 
     public override void _Ready()
     {
-        _characters = LoadResources<Character>("res://Characters/", "_IsCharacter");
-        _backgrounds = LoadResources<Background>("res://Backgrounds/", "_IsBackground");
+        _characters = LoadCharacters("res://Characters/");
+        _backgrounds = LoadBackgrounds("res://Backgrounds/");
     }
 
     public Character GetCharacter(string characterId)
@@ -28,35 +31,44 @@ public partial class ResourceDB : Node
         return GetCharacter(NARRATOR_ID);
     }
 
-    // TODO fix this function
-    private Dictionary<string, T> LoadResources<T>(string directoryPath, string checkTypeFunction) where T : Resource
+    private Dictionary<string, Character> LoadCharacters(string directoryPath) 
     {
-        var directory = new Directory();
-        if (directory.Open(directoryPath) != Error.Ok)
-            return new Dictionary<string, T>();
+        var resources = new Dictionary<string, Character>();
+        string[] fileNames = Directory.GetFiles(directoryPath, "*.tres");
 
-        var resources = new Dictionary<string, T>();
-
-        directory.ListDirBegin();
-        var filename = directory.GetNext();
-        while (!string.IsNullOrEmpty(filename))
+        foreach (var item in fileNames)
         {
-            if (filename.EndsWith(".tres"))
-            {
-                var resource = ResourceLoader.Load<T>(directoryPath.PlusFile(filename));
+            var path  = directoryPath + "/" + item;
+            var resource = ResourceLoader.Load(path) as Character;
 
-                var checkTypeMethod = GetType().GetMethod(checkTypeFunction);
-                if (checkTypeMethod == null || !(bool)checkTypeMethod.Invoke(this, new object[] { resource }))
-                    continue;
+            if (!_IsCharacter(resource))
+                continue;
 
-                resources[resource.GetId()] = resource;
-            }
-            filename = directory.GetNext();
+            if (resource.Id != null)
+                resources[resource.Id] = resource;
         }
-        directory.ListDirEnd();
-
         return resources;
     }
+
+    private Dictionary<string, Background> LoadBackgrounds(string directoryPath) 
+    {
+        var resources = new Dictionary<string, Background>();
+        string[] fileNames = Directory.GetFiles(directoryPath, "*.tres");
+
+        foreach (var item in fileNames)
+        {
+            var path  = directoryPath + "/" + item;
+            var resource = ResourceLoader.Load(path) as Background;
+
+            if (!_IsBackground(resource))
+                continue;
+
+            if (resource.Id != null)
+                resources[resource.Id] = resource;
+        }
+        return resources;
+    }
+
 
     private bool _IsCharacter(Resource resource)
     {

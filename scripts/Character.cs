@@ -3,7 +3,7 @@ using System;
 
 namespace VisualNovelMono
 {
-        public partial class Character : Resource
+    public partial class Character : Resource
     {
         [Export]
         public string Id { get; set; }  = "character_id" ;

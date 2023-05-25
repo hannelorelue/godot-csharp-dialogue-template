@@ -114,7 +114,7 @@ public partial class TextBox : TextureRect
 	{
 		int characterCount = _richTextLabel.GetTotalCharacterCount();
 		_tween = GetTree().CreateTween();
-		_tween.TweenProperty(_richTextLabel, "visible_characters", characterCount, characterCount / DisplaySpeed).SetTrans(Tween.TransitionType.Quint).From(0);
+		_tween.TweenProperty(_richTextLabel, "visible_characters", characterCount, characterCount / DisplaySpeed).From(0);
 		await ToSignal(_tween, "finished");
 		_blinkingArrow.Show();
 	}

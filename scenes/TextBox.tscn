@@ -166,16 +166,13 @@ _data = {
 }
 
 [node name="TextBox" type="TextureRect"]
-anchors_preset = 12
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 15.0
-offset_top = -292.0
-offset_right = -12.0
-offset_bottom = -16.0
-grow_horizontal = 2
+offset_top = -335.0
+offset_right = 1922.0
 grow_vertical = 0
+size_flags_vertical = 10
 theme = ExtResource("1_3c58p")
 texture = SubResource("GradientTexture2D_wb0hl")
 script = ExtResource("1_cwc2o")

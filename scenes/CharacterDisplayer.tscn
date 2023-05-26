@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://vxb3ql1a813n" path="res://assets/Dani.png" id="2"]
 
 [node name="CharacterDisplayer" type="Node2D"]
-scale = Vector2(0.5, 0.5)
 script = ExtResource("1_mfaxy")
 
 [node name="OuterLeft" type="Sprite2D" parent="."]

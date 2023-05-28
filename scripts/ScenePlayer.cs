@@ -1,6 +1,9 @@
 using Godot;
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using VisualNovelMono;
+using Newtonsoft.Json;
 
 namespace VisualNovelMono
 {
@@ -16,7 +19,7 @@ namespace VisualNovelMono
 
         private Vector2 viewportSize;
 
-        public async override void _Ready()
+        public override void _Ready()
         {
             textbox = GetNode<TextBox>("TextBox");
             characterDisplayer = GetNode<CharacterDisplayer>("CharacterDisplayer") ;
@@ -26,19 +29,30 @@ namespace VisualNovelMono
             Vector2 viewportScale = viewportSize / new Vector2(1920, 1080);
             float characterDisplayerScale = Mathf.Max(viewportScale.X, viewportScale.Y);
             characterDisplayer.Scale = new Vector2(characterDisplayerScale, characterDisplayerScale);
-            GD.Print(viewportSize);
-            await appearAsync();  
-            textbox.DisplayAsync("Hello! My name is Sophia! How are you?", "Sophia");
+            Dictionary<int, Timeline.TimelineEvent> SceneData = Timeline.LoadFromJson("Timeline1.json");
+            foreach (var item in SceneData)
+            {
+                GD.Print(item.ToString());
+            }       
+            // await appearAsync();  
+            // await textbox.DisplayAsync("Hello! My name is Sophia! How are you?", "Sophia");
+
         }
 
         async Task appearAsync() 
         {   
-            GD.Print("fade in");
             anim_player.Play("fade_in");
             await ToSignal(anim_player, "animation_finished");
             await textbox.FadeInAsync();
         }
     
+        async Task disappearAsync() 
+        {   
+            await textbox.FadeOutAsync();
+            anim_player.Play("fade_out");
+            await ToSignal(anim_player, "animation_finished");
+
+        }
 
 
     }

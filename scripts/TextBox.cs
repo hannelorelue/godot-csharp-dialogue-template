@@ -67,7 +67,7 @@ namespace VisualNovelMono
 			}
 		}
 
-		public async void DisplayAsync(string Text, string characterName = "", float speed = -1) 
+		public async Task DisplayAsync(string Text, string characterName = "", float speed = -1) 
 		{
 			
 			if (speed == -1) 

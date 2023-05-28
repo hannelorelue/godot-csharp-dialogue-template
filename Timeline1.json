@@ -1,0 +1,73 @@
+{
+	"1" :
+	{
+		"Line":"We have to leave.",
+		"Character":"Jon",
+		"Condition": null,
+		"Next":2
+	},
+	"8" :
+	{
+		"Next":1,
+		"Character":"Jon",
+		"Animation":"enter",
+		"SpriteId": null,
+		"position":"middle",
+		"AnimationLength":1.5,
+		"SpriteMirrored":0,
+		"ZIndex": 0,
+		"Action": null
+	},
+	"2":
+	{
+		"ChangeBackground": null,
+		"ChangeMusic": null,
+		"AudioEvent": null,
+		"ThemeChange": null,
+		"WaitTime":1,
+		"Next":3
+	},
+	"3":
+	{
+		"Line":"Where should we go?",
+		"Character":"Jon",
+		"Condition": null,
+		"Choices":
+		[
+			4,
+			5
+		],
+		"Next":5
+	},
+	"4":
+	{
+		"ChoiceLabel":"Go left",
+		"Condition": null,
+		"ParentId":3,
+		"Next":10
+	},
+	"5":
+	{
+		"ChoiceLabel":"Go right",
+		"Condition": null,
+		"ParentId":3,
+		"Next":9
+	},
+	"6":
+	{
+		"Line":"Don't open that!",
+		"Character":"Jon",
+		"Condition": null,
+		"Next":-1
+	},
+	"10":{
+		"Next":6,
+		"Line":"Left is a door.",
+		"Condition": null
+	},
+	"9":{
+		"Line":"On the right is a staircase.",
+		"Condition": null,
+		"Next":-1
+	}
+}

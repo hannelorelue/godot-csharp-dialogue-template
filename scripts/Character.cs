@@ -40,7 +40,11 @@ namespace VisualNovelMono
 
         public Texture2D GetImage(string Expression) 
         {
-            return Images[Expression];
+            if (Expression == "") {
+                return GetDefaultImage();
+            } else {
+                return Images[Expression];
+            }
         }
     
         public Texture2D GetDefaultImage() 

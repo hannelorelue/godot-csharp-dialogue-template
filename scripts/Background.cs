@@ -12,6 +12,6 @@ namespace VisualNovelMono
                 public string DisplayName { get; set; } = "Display Name";
 
                 [Export]
-                public Texture2D texture ;
+                public Texture2D texture;
         }
 }

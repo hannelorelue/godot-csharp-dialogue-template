@@ -14,6 +14,10 @@ config/name="Visual-novel-mono-template"
 config/features=PackedStringArray("4.0", "C#", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+ResourceDB="*res://scripts/ResourceDB.cs"
+
 [display]
 
 window/size/viewport_width=1920

@@ -20,8 +20,8 @@ namespace VisualNovelMono
         private static readonly Color WHITE = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         private static readonly Dictionary<string, string> ANIMATIONS = new Dictionary<string, string>
         {
-            {"enter", "_enter"},
-            {"leave", "_leave"}
+            {"enter", "EnterAsync"},
+            {"leave", "LeaveAsync"}
         };
 
         private Dictionary<string, Character> _displayed = new Dictionary<string, Character>
@@ -55,12 +55,16 @@ namespace VisualNovelMono
             _middleSprite.Hide();
             _rightSprite.Hide();
             _outerRightSprite.Hide();
+
+            // ResourceDB resourceDB = (ResourceDB) GetNode("/root/ResourceDB");
+            // Character Godette = resourceDB.GetCharacter("Godette");
+            // Display(Godette, "middle", spriteScale: 0.3);
         }
 
-        public void Display(Character character, string side, string expression = "", string animation = "", bool isMirrored = false, int spriteZIndex = 0)
+        public void Display(Character character, string side, string expression = "", string animation = "", double spriteScale = 0 , bool isMirrored = false, int spriteZIndex = 0)
         {
-
-            Sprite2D  sprite = null;
+            
+            Sprite2D sprite = null;
 
             if (_displayed[OUTER_LEFT] == character)
             {
@@ -106,21 +110,27 @@ namespace VisualNovelMono
                     break;
             }
 
+
             if (sprite != null)
             {
                 sprite.Texture = character.GetImage(expression);
                 sprite.FlipH = isMirrored;
                 sprite.ZIndex = spriteZIndex;
+                if (spriteScale != 0) 
+                {
+                    sprite.Scale = new Vector2((float) spriteScale, (float) spriteScale);
+                }
+                
                 sprite.Show();
 
-                if (!string.IsNullOrEmpty(animation))
-                {
-                    Call(ANIMATIONS[animation], side, sprite);
-                }
+                // if (!string.IsNullOrEmpty(animation))
+                // {
+                //     Call(ANIMATIONS[animation], side, sprite);
+                // }
             }
         }
 
-        async void _Enter(string fromSide, Sprite2D  sprite)
+        async Task EnterAsync(string fromSide, Sprite2D  sprite)
         {
             float offset = 0;
             switch (fromSide)
@@ -147,7 +157,7 @@ namespace VisualNovelMono
             sprite.Modulate = COLOR_WHITE_TRANSPARENT;
         }
 
-        async Task _Leave(string fromSide, Sprite2D  sprite)
+        async Task LeaveAsync(string fromSide, Sprite2D  sprite)
         {
             float offset = 0.0f;
 

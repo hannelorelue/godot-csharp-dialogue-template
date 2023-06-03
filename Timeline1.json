@@ -1,21 +1,26 @@
 {
+	"0" : {
+		"Next":8,
+		"Transition": "fadeIn"
+	},
 	"1" :
 	{
 		"Line":"We have to leave.",
-		"Character":"Jon",
+		"Character":"Godette",
 		"Condition": null,
 		"Next":2
 	},
 	"8" :
 	{
 		"Next":1,
-		"Character":"Jon",
+		"Character":"Godette",
 		"Animation":"enter",
 		"SpriteId": null,
 		"position":"middle",
 		"AnimationLength":1.5,
 		"SpriteMirrored":0,
 		"ZIndex": 0,
+		"Scale" : 0.3,
 		"Action": null
 	},
 	"2":
@@ -30,7 +35,7 @@
 	"3":
 	{
 		"Line":"Where should we go?",
-		"Character":"Jon",
+		"Character":"Godette",
 		"Condition": null,
 		"Choices":
 		[
@@ -56,7 +61,7 @@
 	"6":
 	{
 		"Line":"Don't open that!",
-		"Character":"Jon",
+		"Character":"Godette",
 		"Condition": null,
 		"Next":-1
 	},

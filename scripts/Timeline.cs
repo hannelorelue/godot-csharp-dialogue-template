@@ -18,7 +18,7 @@ namespace VisualNovelMono
 
         public class TimelineEvent
         {
-            public string Next { get; set; }  = null;
+            public int Next { get; set; } = 1;
             public string Line { get; set; } = null;
             public string Character { get; set; } = null;
             public string Condition { get; set; } = null;
@@ -28,6 +28,7 @@ namespace VisualNovelMono
             public string AnimationLength { get; set; } = null;
             public bool SpriteMirrored { get; set; } = false;
             public int ZIndex { get; set; } = 0;
+            public double Scale { get; set; } = 1;
             public string Action { get; set; } = null;
             public string ChangeBackground { get; set; } = null;
             public string ChangeMusic { get; set; } = null;
@@ -37,6 +38,37 @@ namespace VisualNovelMono
             public List<int> Choices { get; set; } = null;
             public string ParentId { get; set; } = null;
             public string ChoiceLabel { get; set; } = null;
+            public string Transition { get; set; } = null;
+
+
+            public bool Has(string propertyName)
+            {
+                var property = GetType().GetProperty(propertyName);
+                if (property != null)
+                {
+                    var value = property.GetValue(this);
+                    if (property.Name == "Scale") {
+                        if((double) value == 1) return false;
+                    }
+                    return value != null;
+                }
+                return false;
+            }
+
+            public T Get<T>(string propertyName)
+            {
+                var property = GetType().GetProperty(propertyName);
+                if (property != null)
+                {
+                    var value = property.GetValue(this);
+                    if (value is T typedValue)
+                    {
+                        return typedValue;
+                    }
+                }
+                return default(T);
+            }
+            
 
             public override string ToString() 
             {

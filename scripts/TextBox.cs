@@ -46,10 +46,6 @@ namespace VisualNovelMono
 
 		}
 
-		// Called every frame. 'delta' is the elapsed time since the previous frame.
-		public override void _Process(double delta)
-		{
-		}
 
 		public override void _UnhandledInput(InputEvent @event)
 		{
@@ -70,6 +66,9 @@ namespace VisualNovelMono
 		public async Task DisplayAsync(string Text, string characterName = "", float speed = -1) 
 		{
 			
+			if (SelfModulate  == new Color(1,1,1,0)) {
+				await FadeInAsync();
+			}
 			if (speed == -1) 
 			{
 				speed = DisplaySpeed;
@@ -85,6 +84,7 @@ namespace VisualNovelMono
 		
 			await SetBBCodeTextAsync(Text);
 			await beginDialogueDisplayAsync();
+			await ToSignal(this, "NextRequested");
 		}
 
 		async Task SetBBCodeTextAsync(string Text) 

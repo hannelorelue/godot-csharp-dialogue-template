@@ -13,8 +13,8 @@ namespace VisualNovelMono
 
         public override void _Ready()
         {
-            _characters = LoadCharacters("res://Characters/");
-            _backgrounds = LoadBackgrounds("res://Backgrounds/");
+            _characters = LoadCharacters("resources/Characters/");
+            _backgrounds = LoadBackgrounds("resources/Background/");
         }
 
         public Character GetCharacter(string characterId)
@@ -39,7 +39,7 @@ namespace VisualNovelMono
 
             foreach (var item in fileNames)
             {
-                var path  = directoryPath + "/" + item;
+                var path  = item;
                 var resource = ResourceLoader.Load(path) as Character;
 
                 if (!_IsCharacter(resource))
@@ -58,7 +58,7 @@ namespace VisualNovelMono
 
             foreach (var item in fileNames)
             {
-                var path  = directoryPath + "/" + item;
+                var path  =  item;
                 var resource = ResourceLoader.Load(path) as Background;
 
                 if (!_IsBackground(resource))

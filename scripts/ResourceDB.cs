@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
-namespace VisualNovelMono
+namespace Honeycodes.Dialogue
 {
     public partial class ResourceDB : Node
     {

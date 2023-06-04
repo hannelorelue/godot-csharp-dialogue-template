@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Newtonsoft.Json;
 
-namespace VisualNovelMono 
+namespace Honeycodes.Dialogue
 {
     public class Timeline 
     {

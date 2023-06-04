@@ -2,10 +2,9 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using VisualNovelMono;
 using Newtonsoft.Json;
 
-namespace VisualNovelMono
+namespace Honeycodes.Dialogue
 {
     public partial class ScenePlayer : Node
     {
@@ -68,7 +67,7 @@ namespace VisualNovelMono
                     string animation = currentEvent.Has("Animation") ? currentEvent.Get<string>("Animation") : "";
                     string expression = currentEvent.Has("Expression") ? currentEvent.Get<string>("Expression") : "";
                     double characterScale = currentEvent.Has("Scale") ? currentEvent.Get<double>("Scale"): 0;
-                    characterDisplayer.Display(character, position, expression, animation, characterScale);
+                    await characterDisplayer.DisplayAsync(character, position, expression, animation, characterScale);
                 }
 
                 if (currentEvent.Has("Line"))
@@ -80,10 +79,6 @@ namespace VisualNovelMono
                 {
                     key = currentEvent.Get<int>("Next");
                 }
-                
-        
-
-                
             }
         }
 

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace VisualNovelMono
+namespace Honeycodes.Dialogue
 {
     public partial class CharacterDisplayer : Node2D
     {
@@ -18,11 +18,11 @@ namespace VisualNovelMono
         private const string DEFAULT = "default";
         private static readonly Color COLOR_WHITE_TRANSPARENT = new Color(1.0f, 1.0f, 1.0f, 0.0f);
         private static readonly Color WHITE = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-        private static readonly Dictionary<string, string> ANIMATIONS = new Dictionary<string, string>
-        {
-            {"enter", "EnterAsync"},
-            {"leave", "LeaveAsync"}
-        };
+        // private static readonly Dictionary<string, string> ANIMATIONS = new Dictionary<string, string>
+        // {
+        //     {"enter", "EnterAsync"},
+        //     {"leave", "LeaveAsync"}
+        // };
 
         private Dictionary<string, Character> _displayed = new Dictionary<string, Character>
         {
@@ -33,7 +33,7 @@ namespace VisualNovelMono
             {OUTER_RIGHT, null}
         };
 
-        private float animationLength = 0.5f;
+        private float animationLength = 0.7f;
 
         private Tween _tween;
         private Sprite2D _outerLeftSprite;
@@ -50,21 +50,22 @@ namespace VisualNovelMono
             _rightSprite = GetNode<Sprite2D >("Right");
             _outerRightSprite = GetNode<Sprite2D >("OuterRight");
 
-            _outerLeftSprite.Hide();
-            _leftSprite.Hide();
-            _middleSprite.Hide();
-            _rightSprite.Hide();
-            _outerRightSprite.Hide();
+            // _outerLeftSprite.Hide();
+            // _leftSprite.Hide();
+            // _middleSprite.Hide();
+            // _rightSprite.Hide();
+            // _outerRightSprite.Hide();
 
             // ResourceDB resourceDB = (ResourceDB) GetNode("/root/ResourceDB");
             // Character Godette = resourceDB.GetCharacter("Godette");
-            // Display(Godette, "middle", spriteScale: 0.3);
+            // DisplayAsync(Godette, "middle", spriteScale: 0.3, animation: "enter");
         }
 
-        public void Display(Character character, string side, string expression = "", string animation = "", double spriteScale = 0 , bool isMirrored = false, int spriteZIndex = 0)
+        public async Task DisplayAsync(Character character, string side, string expression = "", string animation = "", double spriteScale = 0 , bool isMirrored = false, int spriteZIndex = 0)
         {
             
             Sprite2D sprite = null;
+ 
 
             if (_displayed[OUTER_LEFT] == character)
             {
@@ -110,7 +111,6 @@ namespace VisualNovelMono
                     break;
             }
 
-
             if (sprite != null)
             {
                 sprite.Texture = character.GetImage(expression);
@@ -120,17 +120,20 @@ namespace VisualNovelMono
                 {
                     sprite.Scale = new Vector2((float) spriteScale, (float) spriteScale);
                 }
-                
-                sprite.Show();
 
-                // if (!string.IsNullOrEmpty(animation))
-                // {
-                //     Call(ANIMATIONS[animation], side, sprite);
-                // }
+                switch (animation)
+                {
+                    case "enter":
+                        await EnterAsync(side, sprite);
+                        break;
+                    case "leave":
+                        await LeaveAsync(side, sprite);
+                        break;
+                }
             }
         }
 
-        async Task EnterAsync(string fromSide, Sprite2D  sprite)
+        async Task EnterAsync(string fromSide, Sprite2D sprite)
         {
             float offset = 0;
             switch (fromSide)
@@ -138,11 +141,11 @@ namespace VisualNovelMono
                 case OUTER_LEFT:
                 case LEFT:
                 case MIDDLE:
-                    offset = -200.0f;
+                    offset = -400.0f;
                     break;
                 case RIGHT:
                 case OUTER_RIGHT:
-                    offset = 200.0f;
+                    offset = 400.0f;
                     break;
             };
 
@@ -150,11 +153,9 @@ namespace VisualNovelMono
             Vector2 end = sprite.Position;
 
             _tween = GetTree().CreateTween();
-            _tween.Parallel().TweenProperty(sprite, "position", end, animationLength).SetTrans(Tween.TransitionType.Quint).From(0).SetEase(Tween.EaseType.Out);
-            _tween.TweenProperty(sprite, "modulate", WHITE, animationLength * 0.25f).SetTrans(Tween.TransitionType.Quint).From(COLOR_WHITE_TRANSPARENT).SetEase(Tween.EaseType.Out);
+            _tween.TweenProperty(sprite, "position", end, animationLength).SetTrans(Tween.TransitionType.Quint).From(start).SetEase(Tween.EaseType.Out);
+            _tween.Parallel().TweenProperty(sprite, "modulate", WHITE, animationLength * 0.2f).SetTrans(Tween.TransitionType.Quint).From(COLOR_WHITE_TRANSPARENT).SetEase(Tween.EaseType.Out);
             await ToSignal(_tween, "finished");
-            sprite.Position = start;
-            sprite.Modulate = COLOR_WHITE_TRANSPARENT;
         }
 
         async Task LeaveAsync(string fromSide, Sprite2D  sprite)
@@ -180,8 +181,8 @@ namespace VisualNovelMono
             Vector2 end = sprite.Position + new Vector2(offset, 0.0f);
             
             _tween = GetTree().CreateTween();
-            _tween.Parallel().TweenProperty(sprite, "position", end, animationLength).SetTrans(Tween.TransitionType.Quint).From(0).SetEase(Tween.EaseType.Out);
-            _tween.TweenProperty(sprite, "modulate", COLOR_WHITE_TRANSPARENT, animationLength * 0.5f).SetTrans(Tween.TransitionType.Linear).From( WHITE).SetEase(Tween.EaseType.Out);
+            _tween.TweenProperty(sprite, "position", end, animationLength).SetTrans(Tween.TransitionType.Quint).From(0).SetEase(Tween.EaseType.Out);
+            _tween.Parallel().TweenProperty(sprite, "modulate", COLOR_WHITE_TRANSPARENT, animationLength * 0.5f).SetTrans(Tween.TransitionType.Linear).From( WHITE).SetEase(Tween.EaseType.Out);
             await ToSignal(_tween, "finished");
         }
 

@@ -8,23 +8,28 @@
 script = ExtResource("1_mfaxy")
 
 [node name="OuterLeft" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(232, 648)
 texture = ExtResource("2")
 
 [node name="Left" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(560, 648)
 texture = ExtResource("2")
 
 [node name="Middle" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(920, 648)
 texture = ExtResource("2")
 
 [node name="Right" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(1312, 648)
 texture = ExtResource("1")
 flip_h = true
 
 [node name="OuterRight" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(1680, 640)
 texture = ExtResource("1")
 flip_h = true

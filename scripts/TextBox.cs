@@ -1,14 +1,18 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace VisualNovelMono
+namespace Honeycodes.Dialogue
 {
 	public partial class TextBox : TextureRect
 	{
 
 		[Signal]
 		public delegate void NextRequestedEventHandler();
+
+		 [Signal]
+    	public delegate void ChoiceMadeEventHandler(int targetId);
 
 		[Export]
 		public float DisplaySpeed = 20;
@@ -24,8 +28,9 @@ namespace VisualNovelMono
 
 		private RichTextLabel _richTextLabel;
 		private Label _nameLabel;
-		private Control  _blinkingArrow;
+		private Control _blinkingArrow;
 		private Tween _tween;
+		private ChoiceContainer _choiceContainer;
 		private AnimationPlayer _aniPlayer;
 		
 		// Called when the node enters the scene tree for the first time.
@@ -36,11 +41,13 @@ namespace VisualNovelMono
 			_nameLabel = GetNode<Label>("NameBackground/NameLabel");
 			_blinkingArrow = GetNode<Control>("RichTextLabel/BlinkingArrow");
 			_aniPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+			_choiceContainer = GetNode<ChoiceContainer>("ChoiceContainer");
 
 			_blinkingArrow.Hide();
 			_nameLabel.Text = "";
 			_richTextLabel.Text = "";
 			_richTextLabel.VisibleCharacters  = 0;
+			_choiceContainer.ChoiceMade += OnChoiceSelectorChoiceMade;
 			//await FadeInAsync();
 			//Display("Hello! My name is Sophia! How are you?", "Sophia");
 
@@ -120,6 +127,18 @@ namespace VisualNovelMono
 			await ToSignal(_tween, "finished");
 			_blinkingArrow.Show();
 		}
+
+		public void DisplayChoices(List<Timeline.TimelineEvent> choices)
+		{
+			_blinkingArrow.Hide();
+			_choiceContainer.Display(choices);
+		}
+
+		private void OnChoiceSelectorChoiceMade(int targetId)
+		{
+			EmitSignal("ChoiceMade", targetId);
+		}
+
 
 	}
 }

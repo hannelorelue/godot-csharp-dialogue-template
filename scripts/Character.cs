@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace VisualNovelMono
+namespace Honeycodes.Dialogue
 {
     public partial class Character : Resource
     {

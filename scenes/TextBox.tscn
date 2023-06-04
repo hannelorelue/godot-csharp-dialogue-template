@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccypfdl5s06e1"]
+[gd_scene load_steps=12 format=3 uid="uid://ccypfdl5s06e1"]
 
 [ext_resource type="Theme" uid="uid://unxtpgxp8f3q" path="res://themes/defaultTheme.tres" id="1_3c58p"]
 [ext_resource type="Texture2D" uid="uid://bk86dfvs58sua" path="res://assets/character-name-box.png" id="1_5dlsd"]
 [ext_resource type="Script" path="res://scripts/TextBox.cs" id="1_cwc2o"]
+[ext_resource type="PackedScene" uid="uid://dfpjpqvfjlcgc" path="res://scenes/ChoiceContainer.tscn" id="3_4fv5g"]
 [ext_resource type="Texture2D" uid="uid://bncnwitqhcte" path="res://assets/arrow.png" id="3_gjgox"]
 
 [sub_resource type="Gradient" id="Gradient_gjp8h"]
@@ -178,6 +179,13 @@ theme = ExtResource("1_3c58p")
 texture = SubResource("GradientTexture2D_wb0hl")
 script = ExtResource("1_cwc2o")
 
+[node name="ChoiceContainer" parent="." instance=ExtResource("3_4fv5g")]
+layout_mode = 1
+offset_left = 546.0
+offset_top = -303.0
+offset_right = -640.0
+offset_bottom = -339.0
+
 [node name="NameBackground" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
@@ -186,6 +194,7 @@ offset_top = -45.0
 offset_right = 385.0
 offset_bottom = 66.0
 texture = ExtResource("1_5dlsd")
+metadata/_edit_lock_ = true
 
 [node name="NameLabel" type="Label" parent="NameBackground"]
 layout_mode = 1
@@ -213,6 +222,8 @@ offset_bottom = 265.0
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "Sample text here"
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="BlinkingArrow" type="Control" parent="RichTextLabel"]
 layout_mode = 1

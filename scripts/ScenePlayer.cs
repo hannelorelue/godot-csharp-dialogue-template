@@ -8,6 +8,12 @@ namespace Honeycodes.Dialogue
 {
     public partial class ScenePlayer : Node
     {
+
+        [Signal]
+		public delegate void ChangeTimelineEventHandler(string Path);
+        [Signal]
+		public delegate void TimelineFinishedEventHandler(string Path);
+
         private const int KEY_END_OF_SCENE = -1;
         private const int KEY_RESTART_SCEN = -2;
 
@@ -21,6 +27,7 @@ namespace Honeycodes.Dialogue
 
         public override void _Ready()
         {
+            ChangeTimeline += OnChangeTimeline;
             textBox = GetNode<TextBox>("TextBox");
             characterDisplayer = GetNode<CharacterDisplayer>("CharacterDisplayer") ;
             background = GetNode<TextureRect>("Background");
@@ -30,8 +37,8 @@ namespace Honeycodes.Dialogue
             Vector2 viewportScale = viewportSize / new Vector2(1920, 1080);
             float characterDisplayerScale = Mathf.Max(viewportScale.X, viewportScale.Y);
             characterDisplayer.Scale = new Vector2(characterDisplayerScale, characterDisplayerScale);
-            Dictionary<int, Timeline.TimelineEvent> SceneData = Timeline.LoadFromJson("Timeline1.json");
-            RunScene("Timeline1.json");
+            Dictionary<int, Timeline.TimelineEvent> SceneData = LoadTimeline("Timeline1.json");
+            RunScene(SceneData);
 
             // foreach (var item in SceneData)
             // {
@@ -42,15 +49,25 @@ namespace Honeycodes.Dialogue
 
         }
 
-        public async Task RunScene(string Path)
+        private void OnChangeTimeline(string Path)
         {
-            Dictionary<int, Timeline.TimelineEvent> SceneData = Timeline.LoadFromJson(Path);
+            RunScene(LoadTimeline(Path));
+        }
+
+        private Dictionary<int, Timeline.TimelineEvent> LoadTimeline(string Path) 
+        {
+            return Timeline.LoadFromJson(Path);
+        }
+
+        public async Task RunScene(Dictionary<int, Timeline.TimelineEvent> SceneData)
+        {
             // Scene data has to start at 0!
             int key = 0;
             while (key != KEY_END_OF_SCENE)
             {
                 Timeline.TimelineEvent currentEvent = SceneData[key];
                 GD.Print(currentEvent.ToString());
+                GD.Print(key.GetType());
 
                 Character character = (currentEvent.Has("Character"))
                     ? resourceDB.GetCharacter(currentEvent.Get<string>("Character"))
@@ -59,7 +76,8 @@ namespace Honeycodes.Dialogue
                 if (currentEvent.Has("ChangeBackground"))
                 {
                     Background bg = resourceDB.GetBackground(currentEvent.Get<string>("ChangeBackground"));
-                    background.Texture = bg.texture;
+                    GD.Print(bg);
+                    background.Texture = bg.Texture;
                 }
                 if (currentEvent.Has("Character"))
                 {
@@ -70,17 +88,53 @@ namespace Honeycodes.Dialogue
                     await characterDisplayer.DisplayAsync(character, position, expression, animation, characterScale);
                 }
 
-                if (currentEvent.Has("Line"))
+                if (currentEvent.Has("Choices")) 
                 {
-                    await textBox.DisplayAsync(currentEvent.Get<string>("Line"), character.DisplayName);
+
+                   // await textBox.DisplayAsync(currentEvent.Get<string>("Line"), character.DisplayName, 0);
+                    List<Timeline.TimelineEvent> choices = new List<Timeline.TimelineEvent>();
+                    foreach (var item in currentEvent.Get<List<int> >("Choices"))
+                    {
+                        choices.Add(SceneData[item]);
+                    }
+                    Task<int> returnedTaskTResult = textBox.DisplayChoices(choices, character.DisplayName, currentEvent.Get<string>("Line"));
+                    key = (int) await returnedTaskTResult;
+                    GD.Print(key);
+                    GD.Print(key.GetType());
+                    continue;
+                } else if (currentEvent.Has("Line"))
+                {
                     GD.Print(currentEvent.Get<string>("Line"));
+                    await textBox.DisplayAsync(currentEvent.Get<string>("Line"), character.DisplayName);
                     key = currentEvent.Get<int>("Next");
-                } else 
+                    
+                }  else 
                 {
                     key = currentEvent.Get<int>("Next");
                 }
+
+                if (currentEvent.Has("Transition"))
+                {
+                    string transition = currentEvent.Get<string>("Transition");
+                    switch (transition)
+                    {
+                        case "fadeIn":
+                            await appearAsync();
+                            break;
+                        case "fadeOut":
+                            await disappearAsync();
+                            break;
+                    }
+                } else if (currentEvent.Has("ChangeTimeline"))
+                {
+                    EmitSignal("ChangeTimeline");
+                    return;
+                }
             }
+            EmitSignal("TimelineFinished");
         }
+
+    
 
         async Task appearAsync() 
         {   
@@ -96,7 +150,5 @@ namespace Honeycodes.Dialogue
             await ToSignal(animPlayer, "animation_finished");
 
         }
-
-
     }
 }

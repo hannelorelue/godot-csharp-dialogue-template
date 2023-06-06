@@ -8,10 +8,8 @@ namespace Honeycodes.Dialogue
                 [Export]
                 public string Id { get; set; }  = "background_id" ;
                 
-                [Export]
-                public string DisplayName { get; set; } = "Display Name";
 
                 [Export]
-                public Texture2D texture;
+                public Texture2D Texture;
         }
 }

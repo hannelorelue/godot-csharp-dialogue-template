@@ -67,11 +67,16 @@ mouse_filter = 2
 script = ExtResource("1_822ds")
 
 [node name="Background" type="TextureRect" parent="."]
-layout_mode = 2
-offset_right = 1920.0
-offset_bottom = 1080.0
-expand_mode = 1
-stretch_mode = 7
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1082.0
+grow_horizontal = 2
+grow_vertical = 0
+expand_mode = 3
+stretch_mode = 2
 
 [node name="CharacterDisplayer" parent="." instance=ExtResource("2_cnnrr")]
 
@@ -86,16 +91,13 @@ offset_right = 1895.0
 offset_bottom = 1060.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 layout_mode = 2
 offset_right = 1920.0
 offset_bottom = 1080.0
-mouse_filter = 1
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="FadeAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_00qte")
 }
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

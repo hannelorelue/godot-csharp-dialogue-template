@@ -1,7 +1,8 @@
 {
 	"0" : {
 		"Next":8,
-		"Transition": "fadeIn"
+		"Transition": "fadeIn",
+		"ChangeBackground": "Hallway"
 	},
 	"1" :
 	{
@@ -16,12 +17,13 @@
 		"Character":"Godette",
 		"Animation":"enter",
 		"SpriteId": null,
-		"position":"middle",
+		"position":"right",
 		"AnimationLength":1.5,
 		"SpriteMirrored":0,
 		"ZIndex": 0,
 		"Scale" : 0.3,
 		"Action": null
+		
 	},
 	"2":
 	{
@@ -42,7 +44,7 @@
 			4,
 			5
 		],
-		"Next":5
+		"Next":6
 	},
 	"4":
 	{
@@ -63,7 +65,7 @@
 		"Line":"Don't open that!",
 		"Character":"Godette",
 		"Condition": null,
-		"Next":-1
+		"Next":11
 	},
 	"10":{
 		"Next":6,
@@ -73,6 +75,11 @@
 	"9":{
 		"Line":"On the right is a staircase.",
 		"Condition": null,
+		"Next": 11
+	},
+
+	"11":{
+		"Transition": "fadeOut",
 		"Next":-1
 	}
 }

@@ -28,17 +28,21 @@ namespace Honeycodes.Dialogue
 
 		private RichTextLabel _richTextLabel;
 		private Label _nameLabel;
+		private TextureRect _nameBackground ;
 		private Control _blinkingArrow;
 		private Tween _tween;
 		private ChoiceContainer _choiceContainer;
 		private AnimationPlayer _aniPlayer;
+
+		int choice = 0;
 		
 		// Called when the node enters the scene tree for the first time.
-		public override void _Ready()
+		public async override void _Ready()
 		{
 			//Hide();
 			_richTextLabel = GetNode<RichTextLabel>("RichTextLabel");
 			_nameLabel = GetNode<Label>("NameBackground/NameLabel");
+			_nameBackground = GetNode<TextureRect>("NameBackground");
 			_blinkingArrow = GetNode<Control>("RichTextLabel/BlinkingArrow");
 			_aniPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 			_choiceContainer = GetNode<ChoiceContainer>("ChoiceContainer");
@@ -48,9 +52,9 @@ namespace Honeycodes.Dialogue
 			_richTextLabel.Text = "";
 			_richTextLabel.VisibleCharacters  = 0;
 			_choiceContainer.ChoiceMade += OnChoiceSelectorChoiceMade;
-			//await FadeInAsync();
-			//Display("Hello! My name is Sophia! How are you?", "Sophia");
-
+			// await FadeInAsync();
+			// await DisplayAsync("Hello! My name is Sophia! How are you?", "Sophia", 0);
+			// await DisplayAsync("Where do you what to go?", "Sophia");
 		}
 
 
@@ -63,6 +67,7 @@ namespace Honeycodes.Dialogue
 					EmitSignal("NextRequested");
 				} else
 				{
+					_tween.EmitSignal("finished");
 					_tween.Kill();
 					_richTextLabel.VisibleCharacters = -1;
 					_blinkingArrow.Show();
@@ -72,25 +77,37 @@ namespace Honeycodes.Dialogue
 
 		public async Task DisplayAsync(string Text, string characterName = "", float speed = -1) 
 		{
-			
+			GD.Print("DisplayAsync started");
+			_blinkingArrow.Hide();
 			if (SelfModulate  == new Color(1,1,1,0)) {
 				await FadeInAsync();
 			}
-			if (speed == -1) 
+
+			switch (speed)
 			{
+				case -1:
 				speed = DisplaySpeed;
-			}
-			if (speed != DisplaySpeed)
-			{
+				break;
+
+				default:
 				DisplaySpeed = speed;
+				break;
 			}
+
+
 			if (characterName != "")
 			{
+				_nameBackground.Show();
 				_nameLabel.Text = characterName;
+			} else 
+			{
+				_nameBackground.Hide();
 			}
 		
 			await SetBBCodeTextAsync(Text);
+			GD.Print("SetBBCodeTextAsync finished");
 			await beginDialogueDisplayAsync();
+			GD.Print("beginDialogueDisplay finished");
 			await ToSignal(this, "NextRequested");
 		}
 
@@ -128,17 +145,21 @@ namespace Honeycodes.Dialogue
 			_blinkingArrow.Show();
 		}
 
-		public void DisplayChoices(List<Timeline.TimelineEvent> choices)
+		public async Task<int> DisplayChoices(List<Timeline.TimelineEvent> choices, string displayName, string line)
 		{
 			_blinkingArrow.Hide();
+			await SetBBCodeTextAsync(line);
 			_choiceContainer.Display(choices);
+			_nameLabel.Text = displayName;
+			_richTextLabel.VisibleCharacters = -1;
+			await ToSignal(this, SignalName.ChoiceMade);
+			return choice;
 		}
 
 		private void OnChoiceSelectorChoiceMade(int targetId)
 		{
-			EmitSignal("ChoiceMade", targetId);
+			choice = targetId;
+			EmitSignal(SignalName.ChoiceMade);
 		}
-
-
 	}
 }

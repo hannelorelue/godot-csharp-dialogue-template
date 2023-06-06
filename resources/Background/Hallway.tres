@@ -6,5 +6,4 @@
 [resource]
 script = ExtResource("1_okcc1")
 Id = "Hallway"
-DisplayName = "Hallway"
-texture = ExtResource("2_x2wr7")
+Texture = ExtResource("2_x2wr7")

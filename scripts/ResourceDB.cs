@@ -7,7 +7,7 @@ namespace Honeycodes.Dialogue
 {
     public partial class ResourceDB : Node
     {
-        private const string NARRATOR_ID = "narrator";
+        private const string NARRATOR_ID = "Narrator";
         private Dictionary<string, Character> _characters;
         private Dictionary<string, Background> _backgrounds;
 

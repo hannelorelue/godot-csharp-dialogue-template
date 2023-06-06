@@ -181,9 +181,9 @@ script = ExtResource("1_cwc2o")
 
 [node name="ChoiceContainer" parent="." instance=ExtResource("3_4fv5g")]
 layout_mode = 1
-offset_left = 546.0
-offset_top = -303.0
-offset_right = -640.0
+offset_left = 701.0
+offset_top = -195.0
+offset_right = -720.0
 offset_bottom = -339.0
 
 [node name="NameBackground" type="TextureRect" parent="."]

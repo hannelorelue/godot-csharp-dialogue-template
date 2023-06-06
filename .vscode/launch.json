@@ -1,46 +1,63 @@
+
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "name": "Play in Editor",
-            "type": "godot-mono",
-            "mode": "playInEditor",
-            "request": "launch"
-        },
-        {
-            "name": "Launch",
-            "type": "godot-mono",
-            "request": "launch",
-            "mode": "executable",
-            "preLaunchTask": "build",
-            "executable": "<insert-godot-executable-path-here>",
-            "executableArguments": [
-                "--path",
-                "${workspaceRoot}"
-            ]
-        },
-        {
-            "name": "Launch (Select Scene)",
-            "type": "godot-mono",
-            "request": "launch",
-            "mode": "executable",
-            "preLaunchTask": "build",
-            "executable": "<insert-godot-executable-path-here>",
-            "executableArguments": [
-                "--path",
-                "${workspaceRoot}",
-                "${command:SelectLaunchScene}"
-            ]
-        },
-        {
-            "name": "Attach",
-            "type": "godot-mono",
-            "request": "attach",
-            "address": "localhost",
-            "port": 23685
-        }
+      // For these launch configurations to work, you need to setup a GODOT4
+      // environment variable. On mac or linux, this can be done by adding
+      // the following to your .zshrc, .bashrc, or . file:
+      // export GODOT4="/Applications/Godot.app/Contents/MacOS/Godot"
+      {
+        "name": "🕹 Debug Game",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "program": "/Applications/Godot4_mono.app/Contents/MacOS/Godot",
+        "args": [],
+        "cwd": "${workspaceFolder}",
+        "enableStepFiltering": false,
+        "stopAtEntry": false,
+      },
+      // Debug the scene that matches the name of the currently open *.cs file
+      // (if there's a scene with the same name in the same directory).
+      {
+        "name": "🎭 Debug Current Scene",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "program": "/Applications/Godot4_mono.app/Contents/MacOS/Godot",
+        "args": [
+          "${fileDirname}/${fileBasenameNoExtension}.tscn"
+        ],
+        "cwd": "${workspaceFolder}",
+        "stopAtEntry": false,
+      },
+      {
+        "name": "🧪 Debug Tests",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "program": "/Applications/Godot4_mono.app/Contents/MacOS/Godot",
+        "args": [
+          // These command line flags are used by GoDotTest to run tests.
+          "--run-tests",
+          "--quit-on-finish"
+        ],
+        "cwd": "${workspaceFolder}",
+        "stopAtEntry": false,
+      },
+      {
+        "name": "🔬 Debug Current Test",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "program": "/Applications/Godot4_mono.app/Contents/MacOS/Godot",
+        "args": [
+          // These command line flags are used by GoDotTest to run tests.
+          "--run-tests=${fileBasenameNoExtension}",
+          "--quit-on-finish"
+        ],
+        "cwd": "${workspaceFolder}",
+        "stopAtEntry": false,
+      },
     ]
-}
+  }

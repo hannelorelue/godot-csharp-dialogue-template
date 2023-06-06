@@ -15,30 +15,32 @@ namespace Honeycodes.Dialogue
             return EventDict;
         }
 
-
         public class TimelineEvent
         {
             public int Next { get; set; } = 1;
+            public string ParentId { get; set; } = null;
             public string Line { get; set; } = null;
+            public List<int> Choices { get; set; } = null;
+            public string ChoiceLabel { get; set; } = null;
+
             public string Character { get; set; } = null;
             public string Condition { get; set; } = null;
             public string Animation { get; set; } = null;
-            public string SpriteId { get; set; } = null;
+            public string Expression { get; set; } = null;
             public string Position { get; set; } = null;
             public string AnimationLength { get; set; } = null;
             public bool SpriteMirrored { get; set; } = false;
             public int ZIndex { get; set; } = 0;
             public double Scale { get; set; } = 1;
+
             public string Action { get; set; } = null;
             public string ChangeBackground { get; set; } = null;
             public string ChangeMusic { get; set; } = null;
             public string AudioEvent { get; set; } = null;
             public string ThemeChange { get; set; } = null;
-            public float WaitTime{ get; set; }  = 0.0f;
-            public List<int> Choices { get; set; } = null;
-            public string ParentId { get; set; } = null;
-            public string ChoiceLabel { get; set; } = null;
+            public float WaitTime { get; set; }  = 0.0f;
             public string Transition { get; set; } = null;
+            public string ChangeTimeline { get; set; } = null;
 
 
             public bool Has(string propertyName)
@@ -93,7 +95,6 @@ namespace Honeycodes.Dialogue
                         }
                         sb.AppendLine(p.Name + ": " + p.GetValue(this));
                     }
-                   
                 }
                 sb.AppendLine("}");
                 return sb.ToString();

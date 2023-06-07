@@ -1,24 +1,3 @@
-// {
-//     "version": "2.0.0",
-//     "tasks": [
-//         {
-//             "label": "build",
-//             "group": "build",
-//             "command": "scons",
-//             "type": "shell",
-//             "args": [
-//                 "dev_build=yes",
-//                 "--build-solutions",
-//                 "--path",
-//                 "${workspaceRoot}",
-//                 "--no-window",
-//                 "-q"
-//             ],
-//             "problemMatcher": "$msCompile"
-//         }
-//     ]
-// }
-
 {
     "version": "2.0.0",
     "tasks": [

@@ -9,9 +9,10 @@ namespace Honeycodes.Dialogue
 {
     public class Timeline 
     {
+        private const string timelineDirectory = "timelines/";
         public static Dictionary<int, TimelineEvent> LoadFromJson(string Path) 
         {
-            Dictionary<int, TimelineEvent> EventDict =  JsonConvert.DeserializeObject<Dictionary<int, TimelineEvent>>(File.ReadAllText(Path));
+            Dictionary<int, TimelineEvent> EventDict =  JsonConvert.DeserializeObject<Dictionary<int, TimelineEvent>>(File.ReadAllText(timelineDirectory + Path));
             return EventDict;
         }
 

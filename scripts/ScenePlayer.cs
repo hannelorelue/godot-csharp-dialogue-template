@@ -66,9 +66,6 @@ namespace Honeycodes.Dialogue
             while (key != KEY_END_OF_SCENE)
             {
                 Timeline.TimelineEvent currentEvent = SceneData[key];
-                GD.Print(currentEvent.ToString());
-                GD.Print(key.GetType());
-
                 Character character = (currentEvent.Has("Character"))
                     ? resourceDB.GetCharacter(currentEvent.Get<string>("Character"))
                     : resourceDB.GetNarrator();
@@ -76,7 +73,6 @@ namespace Honeycodes.Dialogue
                 if (currentEvent.Has("ChangeBackground"))
                 {
                     Background bg = resourceDB.GetBackground(currentEvent.Get<string>("ChangeBackground"));
-                    GD.Print(bg);
                     background.Texture = bg.Texture;
                 }
                 if (currentEvent.Has("Character"))
@@ -90,8 +86,6 @@ namespace Honeycodes.Dialogue
 
                 if (currentEvent.Has("Choices")) 
                 {
-
-                   // await textBox.DisplayAsync(currentEvent.Get<string>("Line"), character.DisplayName, 0);
                     List<Timeline.TimelineEvent> choices = new List<Timeline.TimelineEvent>();
                     foreach (var item in currentEvent.Get<List<int> >("Choices"))
                     {
@@ -99,12 +93,9 @@ namespace Honeycodes.Dialogue
                     }
                     Task<int> returnedTaskTResult = textBox.DisplayChoices(choices, character.DisplayName, currentEvent.Get<string>("Line"));
                     key = (int) await returnedTaskTResult;
-                    GD.Print(key);
-                    GD.Print(key.GetType());
                     continue;
                 } else if (currentEvent.Has("Line"))
                 {
-                    GD.Print(currentEvent.Get<string>("Line"));
                     await textBox.DisplayAsync(currentEvent.Get<string>("Line"), character.DisplayName);
                     key = currentEvent.Get<int>("Next");
                     
@@ -134,8 +125,6 @@ namespace Honeycodes.Dialogue
             EmitSignal("TimelineFinished");
         }
 
-    
-
         async Task appearAsync() 
         {   
             animPlayer.Play("fade_in");
@@ -148,7 +137,6 @@ namespace Honeycodes.Dialogue
             await textBox.FadeOutAsync();
             animPlayer.Play("fade_out");
             await ToSignal(animPlayer, "animation_finished");
-
         }
     }
 }

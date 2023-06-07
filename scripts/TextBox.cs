@@ -27,8 +27,8 @@ namespace Honeycodes.Dialogue
 		private string _bbcodeText = "";
 
 		private RichTextLabel _richTextLabel;
-		private Label _nameLabel;
-		private TextureRect _nameBackground ;
+		private NameLableAnimations _nameLabel;
+		private NameBackground _nameBackground ;
 		private Control _blinkingArrow;
 		private Tween _tween;
 		private ChoiceContainer _choiceContainer;
@@ -41,8 +41,8 @@ namespace Honeycodes.Dialogue
 		{
 			//Hide();
 			_richTextLabel = GetNode<RichTextLabel>("RichTextLabel");
-			_nameLabel = GetNode<Label>("NameBackground/NameLabel");
-			_nameBackground = GetNode<TextureRect>("NameBackground");
+			_nameLabel = GetNode<NameLableAnimations>("NameBackground/NameLabel");
+			_nameBackground = GetNode<NameBackground>("NameBackground");
 			_blinkingArrow = GetNode<Control>("RichTextLabel/BlinkingArrow");
 			_aniPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 			_choiceContainer = GetNode<ChoiceContainer>("ChoiceContainer");
@@ -77,7 +77,8 @@ namespace Honeycodes.Dialogue
 
 		public async Task DisplayAsync(string Text, string characterName = "", float speed = -1) 
 		{
-			GD.Print("DisplayAsync started");
+			_richTextLabel.Text = "";
+			_richTextLabel.VisibleCharacters  = 0;
 			_blinkingArrow.Hide();
 			if (SelfModulate  == new Color(1,1,1,0)) {
 				await FadeInAsync();
@@ -94,20 +95,22 @@ namespace Honeycodes.Dialogue
 				break;
 			}
 
+			GD.Print(characterName);
 
 			if (characterName != "")
 			{
-				_nameBackground.Show();
 				_nameLabel.Text = characterName;
+				await _nameBackground.AppearAsync();
+				await _nameLabel.AppearAsync();
+				
 			} else 
 			{
-				_nameBackground.Hide();
+				await _nameLabel.DisappearAsync();
+				await _nameBackground.DisappearAsync();
 			}
 		
 			await SetBBCodeTextAsync(Text);
-			GD.Print("SetBBCodeTextAsync finished");
 			await beginDialogueDisplayAsync();
-			GD.Print("beginDialogueDisplay finished");
 			await ToSignal(this, "NextRequested");
 		}
 
@@ -125,6 +128,7 @@ namespace Honeycodes.Dialogue
 
 		public async Task FadeInAsync()
 		{
+
 			_aniPlayer.Play("fade_in");
 			await ToSignal(_aniPlayer, "animation_finished");
 		}
@@ -132,6 +136,8 @@ namespace Honeycodes.Dialogue
 
 		public async Task FadeOutAsync()
 		{
+			await _nameLabel.DisappearAsync();
+			await _nameBackground.DisappearAsync();
 			_aniPlayer.Play("fade_out");
 			await ToSignal(_aniPlayer, "animation_finished");
 		}

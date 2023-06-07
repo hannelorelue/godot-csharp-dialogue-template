@@ -1,8 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2kbont4tme4j"]
+[gd_scene load_steps=2 format=3 uid="uid://d2kbont4tme4j"]
 
-[ext_resource type="Texture2D" uid="uid://b7qjb2yyo0clj" path="res://assets/Sophia.png" id="1"]
 [ext_resource type="Script" path="res://scripts/CharacterDisplayer.cs" id="1_mfaxy"]
-[ext_resource type="Texture2D" uid="uid://vxb3ql1a813n" path="res://assets/Dani.png" id="2"]
 
 [node name="CharacterDisplayer" type="Node2D"]
 script = ExtResource("1_mfaxy")
@@ -10,26 +8,21 @@ script = ExtResource("1_mfaxy")
 [node name="OuterLeft" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(232, 648)
-texture = ExtResource("2")
 
 [node name="Left" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(560, 648)
-texture = ExtResource("2")
 
 [node name="Middle" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(920, 648)
-texture = ExtResource("2")
 
 [node name="Right" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(1312, 648)
-texture = ExtResource("1")
 flip_h = true
 
 [node name="OuterRight" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(1680, 640)
-texture = ExtResource("1")
 flip_h = true

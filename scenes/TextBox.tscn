@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://ccypfdl5s06e1"]
+[gd_scene load_steps=14 format=3 uid="uid://ccypfdl5s06e1"]
 
 [ext_resource type="Theme" uid="uid://unxtpgxp8f3q" path="res://themes/defaultTheme.tres" id="1_3c58p"]
 [ext_resource type="Texture2D" uid="uid://bk86dfvs58sua" path="res://assets/character-name-box.png" id="1_5dlsd"]
 [ext_resource type="Script" path="res://scripts/TextBox.cs" id="1_cwc2o"]
 [ext_resource type="PackedScene" uid="uid://dfpjpqvfjlcgc" path="res://scenes/ChoiceContainer.tscn" id="3_4fv5g"]
 [ext_resource type="Texture2D" uid="uid://bncnwitqhcte" path="res://assets/arrow.png" id="3_gjgox"]
+[ext_resource type="Script" path="res://scripts/NameBackground.cs" id="5_1em1v"]
+[ext_resource type="Script" path="res://scripts/NameLableAnimations.cs" id="5_holi7"]
 
 [sub_resource type="Gradient" id="Gradient_gjp8h"]
 colors = PackedColorArray(0, 0, 0, 1, 0.168627, 0.168627, 0.168627, 0.768627)
@@ -30,7 +32,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath("NameBackground:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -83,7 +85,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath("NameBackground:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -136,7 +138,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath("NameBackground:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -194,6 +196,7 @@ offset_top = -45.0
 offset_right = 385.0
 offset_bottom = 66.0
 texture = ExtResource("1_5dlsd")
+script = ExtResource("5_1em1v")
 metadata/_edit_lock_ = true
 
 [node name="NameLabel" type="Label" parent="NameBackground"]
@@ -211,6 +214,7 @@ theme_override_font_sizes/font_size = 44
 text = "Name here"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("5_holi7")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 modulate = Color(1, 1, 1, 0)

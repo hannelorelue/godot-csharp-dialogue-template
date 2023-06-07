@@ -1,6 +1,50 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://unxtpgxp8f3q"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://unxtpgxp8f3q"]
 
 [ext_resource type="FontFile" uid="uid://ddqglq67wlyoq" path="res://assets/Montserrat-ExtraBold.ttf" id="1_5exnw"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jfhki"]
+bg_color = Color(0.321569, 0.321569, 0.321569, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0.643137, 1, 0.423529)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yg77"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.545098, 0.592157, 0.564706)
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r2443"]
+bg_color = Color(0.478431, 0.478431, 0.478431, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 1, 0.635294)
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjbef"]
+bg_color = Color(0.137255, 0.137255, 0.137255, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 1, 1, 0.176471)
+shadow_size = 2
+
 [resource]
 default_font = ExtResource("1_5exnw")
+Button/styles/disabled = SubResource("StyleBoxFlat_jfhki")
+Button/styles/focus = SubResource("StyleBoxFlat_7yg77")
+Button/styles/hover = SubResource("StyleBoxFlat_r2443")
+Button/styles/normal = SubResource("StyleBoxFlat_jjbef")

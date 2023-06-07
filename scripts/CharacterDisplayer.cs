@@ -18,11 +18,7 @@ namespace Honeycodes.Dialogue
         private const string DEFAULT = "default";
         private static readonly Color COLOR_WHITE_TRANSPARENT = new Color(1.0f, 1.0f, 1.0f, 0.0f);
         private static readonly Color WHITE = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-        // private static readonly Dictionary<string, string> ANIMATIONS = new Dictionary<string, string>
-        // {
-        //     {"enter", "EnterAsync"},
-        //     {"leave", "LeaveAsync"}
-        // };
+ 
 
         private Dictionary<string, Character> _displayed = new Dictionary<string, Character>
         {
@@ -50,11 +46,6 @@ namespace Honeycodes.Dialogue
             _rightSprite = GetNode<Sprite2D >("Right");
             _outerRightSprite = GetNode<Sprite2D >("OuterRight");
 
-            // _outerLeftSprite.Hide();
-            // _leftSprite.Hide();
-            // _middleSprite.Hide();
-            // _rightSprite.Hide();
-            // _outerRightSprite.Hide();
 
             // ResourceDB resourceDB = (ResourceDB) GetNode("/root/ResourceDB");
             // Character Godette = resourceDB.GetCharacter("Godette");

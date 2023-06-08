@@ -52,7 +52,7 @@ namespace Honeycodes.Dialogue
             // DisplayAsync(Godette, "middle", spriteScale: 0.3, animation: "enter");
         }
 
-        public async Task DisplayAsync(Character character, string side, string expression = "", string animation = "", double spriteScale = 0 , bool isMirrored = false, int spriteZIndex = 0)
+        public async Task DisplayAsync(Character character, string side, string expression = "", string animation = "", float spriteScale = 0 , bool isMirrored = false, int spriteZIndex = 0)
         {
             
             Sprite2D sprite = null;

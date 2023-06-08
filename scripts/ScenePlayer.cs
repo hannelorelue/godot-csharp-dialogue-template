@@ -37,13 +37,18 @@ namespace Honeycodes.Dialogue
             Vector2 viewportScale = viewportSize / new Vector2(1920, 1080);
             float characterDisplayerScale = Mathf.Max(viewportScale.X, viewportScale.Y);
             characterDisplayer.Scale = new Vector2(characterDisplayerScale, characterDisplayerScale);
-            Dictionary<int, Timeline.TimelineEvent> SceneData = LoadTimeline("Timeline1.json");
-            RunScene(SceneData);
+
+            Dictionary<int, Timeline.TimelineEvent> SceneData = Timeline.LoadFromTSV("timelines/DemoTimeline.tsv");
+            //Dictionary<int, Timeline.TimelineEvent> SceneData = LoadTimeline("Timeline1.json");
+
+
 
             // foreach (var item in SceneData)
             // {
             //     GD.Print(item.ToString());
             // }       
+
+            RunScene(SceneData);
             // await appearAsync();  
             // await textBox.DisplayAsync("Hello! My name is Sophia! How are you?", "Sophia");
 
@@ -80,7 +85,7 @@ namespace Honeycodes.Dialogue
                     string position = currentEvent.Has("Position") ? currentEvent.Get<string>("Position") : "default";
                     string animation = currentEvent.Has("Animation") ? currentEvent.Get<string>("Animation") : "";
                     string expression = currentEvent.Has("Expression") ? currentEvent.Get<string>("Expression") : "";
-                    double characterScale = currentEvent.Has("Scale") ? currentEvent.Get<double>("Scale"): 0;
+                    float characterScale = currentEvent.Has("Scale") ? currentEvent.Get<float>("Scale"): 0;
                     await characterDisplayer.DisplayAsync(character, position, expression, animation, characterScale);
                 }
 

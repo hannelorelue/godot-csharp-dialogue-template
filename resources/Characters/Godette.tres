@@ -1,7 +1,9 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://oukti48hweae"]
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://oukti48hweae"]
 
 [ext_resource type="Texture2D" uid="uid://djnygvl83e236" path="res://assets/Godette/Neutral.png" id="1_83l3o"]
-[ext_resource type="Texture2D" uid="uid://duvfeaytleehw" path="res://assets/Godette/Laugh.png" id="2_m8ubh"]
+[ext_resource type="Texture2D" uid="uid://bglxo3lkppgje" path="res://assets/Godette/Suprised.png" id="1_lv5wl"]
+[ext_resource type="Texture2D" uid="uid://bw1psoxrtfgid" path="res://assets/Godette/Anger.png" id="2_0w8tb"]
+[ext_resource type="Texture2D" uid="uid://bhex5dqhq4a7a" path="res://assets/Godette/Annoyance.png" id="3_0i4ch"]
 [ext_resource type="Script" path="res://scripts/Character.cs" id="3_rollh"]
 
 [resource]
@@ -10,8 +12,10 @@ Id = "Godette"
 DisplayName = "Godette"
 Bio = ""
 Age = 20
-DefaultImage = "neutral"
+DefaultImage = "Neutral"
 Images = {
-"laugh": ExtResource("2_m8ubh"),
-"neutral": ExtResource("1_83l3o")
+"Anger": ExtResource("2_0w8tb"),
+"Annoyance": ExtResource("3_0i4ch"),
+"Neutral": ExtResource("1_83l3o"),
+"Surprised": ExtResource("1_lv5wl")
 }

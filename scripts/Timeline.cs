@@ -1,25 +1,119 @@
+using Godot;
 using System;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using System.Reflection;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace Honeycodes.Dialogue
 {
     public class Timeline 
     {
         private const string timelineDirectory = "timelines/";
-        public static Dictionary<int, TimelineEvent> LoadFromJson(string Path) 
+        public static Dictionary<int, TimelineEvent> LoadFromJson(string path) 
         {
-            Dictionary<int, TimelineEvent> EventDict =  JsonConvert.DeserializeObject<Dictionary<int, TimelineEvent>>(File.ReadAllText(timelineDirectory + Path));
+            Dictionary<int, TimelineEvent> EventDict =  JsonConvert.DeserializeObject<Dictionary<int, TimelineEvent>>(File.ReadAllText(timelineDirectory + path));
             return EventDict;
         }
 
+        public static Dictionary<int, TimelineEvent> LoadFromTSV(string path) 
+        {
+            Dictionary<int, TimelineEvent> EventDict =  new Dictionary<int, TimelineEvent>();
+            string csv = string.Empty;
+
+            using (StreamReader reader = new StreamReader(path))
+            {
+                csv = reader.ReadToEnd();
+            }
+
+            string[] lines = csv.Split(new string[] { "\n" }, System.StringSplitOptions.None);
+
+            if (lines.Length > 1)
+            {
+                // parse headers
+                string[] headers = lines[0].Split(new string[] { "\t" }, System.StringSplitOptions.TrimEntries);
+
+                // parse data
+                for (int i = 1; i < lines.Length; i++)
+                {
+                    if (string.IsNullOrWhiteSpace(lines[i])) continue;
+                    if (string.IsNullOrEmpty(lines[i])) continue;
+                    string[] columns = lines[i].Split(new string[] { "\t" }, StringSplitOptions.None);
+                    int n;
+                    bool success = int.TryParse(columns[0], out n);
+                    EventDict.Add(n, new TimelineEvent());
+                    //GD.Print(EventDict[n].ToString());
+                    for (int j = 1; j < columns.Length; j++)
+                    {
+                        var header = headers[j];
+
+                        switch (header)
+                        {
+                            case "Next":
+                            case "ParentId":
+                            case "ZIndex":
+                            int k;
+                            success = int.TryParse(columns[j], out k);
+                            EventDict[n].Set<int>(header,k);
+                            break;
+
+                            case "Choices":
+                            if (columns[j] == "") break;
+                            List<int> choiceList = ExtractListFromString(columns[j]);
+                            EventDict[n].Set<List<int>>(header, choiceList);
+                            break;
+
+                            case "SpriteMirrored":
+                            bool b;
+                            success = bool.TryParse(columns[j], out b);
+                            EventDict[n].Set<bool>(header, b);
+                            break;
+
+                            case "Scale":
+                            case "WaitTime":
+                
+                            float f;
+                            success = float.TryParse(columns[j], NumberStyles.Float, CultureInfo.CreateSpecificCulture("en-US"), out f);
+                
+                            EventDict[n].Set<float>(header, f);
+                            break;
+
+                            default:
+                            if (columns[j] == "") break;
+                            EventDict[n].Set<string>(header,columns[j].Trim());
+                            break;
+                        }
+                    }
+                }
+            }
+            return EventDict;
+        }
+
+    static List<int> ExtractListFromString(string input)
+    {
+        List<int> numbers = new List<int>();
+        Regex regex = new Regex(@"\d+");
+        MatchCollection matches = regex.Matches(input);
+
+        foreach (Match match in matches)
+        {
+            int number;
+            if (int.TryParse(match.Value, out number))
+            {
+                numbers.Add(number);
+            }
+        }
+        return numbers;
+    }
+        
+
         public class TimelineEvent
         {
-            public int Next { get; set; } = 1;
-            public string ParentId { get; set; } = null;
+            public int Next { get; set; } = 0;
+            public int ParentId { get; set; } = 0;
             public string Line { get; set; } = null;
             public List<int> Choices { get; set; } = null;
             public string ChoiceLabel { get; set; } = null;
@@ -32,7 +126,7 @@ namespace Honeycodes.Dialogue
             public string AnimationLength { get; set; } = null;
             public bool SpriteMirrored { get; set; } = false;
             public int ZIndex { get; set; } = 0;
-            public double Scale { get; set; } = 1;
+            public float Scale { get; set; } = 1f;
 
             public string Action { get; set; } = null;
             public string ChangeBackground { get; set; } = null;
@@ -51,7 +145,7 @@ namespace Honeycodes.Dialogue
                 {
                     var value = property.GetValue(this);
                     if (property.Name == "Scale") {
-                        if((double) value == 1) return false;
+                        if((float) value == 1) return false;
                     }
                     return value != null;
                 }
@@ -71,6 +165,13 @@ namespace Honeycodes.Dialogue
                 }
                 return default(T);
             }
+
+
+            public void Set<T>(string propertyName, T value)
+            {
+                var property = GetType().GetProperty(propertyName);
+                property.SetValue(this, value);
+            }
             
 
             public override string ToString() 
@@ -80,22 +181,22 @@ namespace Honeycodes.Dialogue
                 sb.AppendLine("{");
                 foreach (var p in props)
                 {
-                    if (p.GetValue(this) != null) 
-                    {
-                        if (p.Name == "ZIndex" && (int) p.GetValue(this) == 0)
-                        {
-                            continue;
-                        }
-                        if (p.Name == "WaitTime" && (float) p.GetValue(this) == 0.0f)
-                        {
-                            continue;
-                        }
-                        if (p.Name == "SpriteMirrored" && (bool) p.GetValue(this) == false)
-                        {
-                            continue;
-                        }
+                    // if (p.GetValue(this) != null) 
+                    // {
+                        // if (p.Name == "ZIndex" && (int) p.GetValue(this) == 0)
+                        // {
+                        //     continue;
+                        // }
+                        // if (p.Name == "WaitTime" && (float) p.GetValue(this) == 0.0f)
+                        // {
+                        //     continue;
+                        // }
+                        // if (p.Name == "SpriteMirrored" && (bool) p.GetValue(this) == false)
+                        // {
+                        //     continue;
+                        // }
                         sb.AppendLine(p.Name + ": " + p.GetValue(this));
-                    }
+                   // }
                 }
                 sb.AppendLine("}");
                 return sb.ToString();

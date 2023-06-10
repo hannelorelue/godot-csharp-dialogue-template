@@ -59,11 +59,6 @@ namespace Honeycodes.Dialogue
             RunScene(LoadTimeline(Path));
         }
 
-        private Dictionary<int, Timeline.TimelineEvent> LoadTimeline(string Path) 
-        {
-            return Timeline.LoadFromJson(Path);
-        }
-
         public async Task RunScene(Dictionary<int, Timeline.TimelineEvent> SceneData)
         {
             // Scene data has to start at 0!

@@ -12,31 +12,45 @@ namespace Honeycodes.Dialogue
 {
     public class Timeline 
     {
-        private const string timelineDirectory = "timelines/";
+        private const string TIMELINE_DIRECTORY = "timelines/";
+        public static Dictionary<int, TimelineEvent> LoadTimeline(string path) 
+        {
+            if (path.EndsWith(".json"))
+            {
+                return LoadFromJson(path);
+            }
+            else if (path.EndsWith(".tsv"))
+            {
+                return LoadFromTSV(path);
+            }
+            else
+            {
+                throw new ArgumentException("Unsupported file format.");
+            }
+        }
+        
         public static Dictionary<int, TimelineEvent> LoadFromJson(string path) 
         {
-            Dictionary<int, TimelineEvent> EventDict =  JsonConvert.DeserializeObject<Dictionary<int, TimelineEvent>>(File.ReadAllText(timelineDirectory + path));
-            return EventDict;
+            Dictionary<int, TimelineEvent> eventDict =  JsonConvert.DeserializeObject<Dictionary<int, TimelineEvent>>(File.ReadAllText(TIMELINE_DIRECTORY + path));
+            return eventDict;
         }
 
         public static Dictionary<int, TimelineEvent> LoadFromTSV(string path) 
         {
-            Dictionary<int, TimelineEvent> EventDict =  new Dictionary<int, TimelineEvent>();
-            string csv = string.Empty;
+            Dictionary<int, TimelineEvent> eventDict =  new Dictionary<int, TimelineEvent>();
+            string tsv = string.Empty;
 
-            using (StreamReader reader = new StreamReader(path))
+            using (StreamReader reader = new StreamReader(TIMELINE_DIRECTORY + path))
             {
-                csv = reader.ReadToEnd();
+                tsv = reader.ReadToEnd();
             }
 
-            string[] lines = csv.Split(new string[] { "\n" }, System.StringSplitOptions.None);
+            string[] lines = tsv.Split(new string[] { "\n" }, System.StringSplitOptions.None);
 
             if (lines.Length > 1)
             {
-                // parse headers
                 string[] headers = lines[0].Split(new string[] { "\t" }, System.StringSplitOptions.TrimEntries);
 
-                // parse data
                 for (int i = 1; i < lines.Length; i++)
                 {
                     if (string.IsNullOrWhiteSpace(lines[i])) continue;
@@ -44,8 +58,8 @@ namespace Honeycodes.Dialogue
                     string[] columns = lines[i].Split(new string[] { "\t" }, StringSplitOptions.None);
                     int n;
                     bool success = int.TryParse(columns[0], out n);
-                    EventDict.Add(n, new TimelineEvent());
-                    //GD.Print(EventDict[n].ToString());
+                    eventDict.Add(n, new TimelineEvent());
+
                     for (int j = 1; j < columns.Length; j++)
                     {
                         var header = headers[j];
@@ -57,39 +71,38 @@ namespace Honeycodes.Dialogue
                             case "ZIndex":
                             int k;
                             success = int.TryParse(columns[j], out k);
-                            EventDict[n].Set<int>(header,k);
+                            eventDict[n].Set<int>(header,k);
                             break;
 
                             case "Choices":
                             if (columns[j] == "") break;
                             List<int> choiceList = ExtractListFromString(columns[j]);
-                            EventDict[n].Set<List<int>>(header, choiceList);
+                            eventDict[n].Set<List<int>>(header, choiceList);
                             break;
 
                             case "SpriteMirrored":
                             bool b;
                             success = bool.TryParse(columns[j], out b);
-                            EventDict[n].Set<bool>(header, b);
+                            eventDict[n].Set<bool>(header, b);
                             break;
 
                             case "Scale":
                             case "WaitTime":
-                
                             float f;
                             success = float.TryParse(columns[j], NumberStyles.Float, CultureInfo.CreateSpecificCulture("en-US"), out f);
                 
-                            EventDict[n].Set<float>(header, f);
+                            eventDict[n].Set<float>(header, f);
                             break;
 
                             default:
                             if (columns[j] == "") break;
-                            EventDict[n].Set<string>(header,columns[j].Trim());
+                            eventDict[n].Set<string>(header,columns[j].Trim());
                             break;
                         }
                     }
                 }
             }
-            return EventDict;
+            return eventDict;
         }
 
     static List<int> ExtractListFromString(string input)
@@ -181,22 +194,22 @@ namespace Honeycodes.Dialogue
                 sb.AppendLine("{");
                 foreach (var p in props)
                 {
-                    // if (p.GetValue(this) != null) 
-                    // {
-                        // if (p.Name == "ZIndex" && (int) p.GetValue(this) == 0)
-                        // {
-                        //     continue;
-                        // }
-                        // if (p.Name == "WaitTime" && (float) p.GetValue(this) == 0.0f)
-                        // {
-                        //     continue;
-                        // }
-                        // if (p.Name == "SpriteMirrored" && (bool) p.GetValue(this) == false)
-                        // {
-                        //     continue;
-                        // }
+                    if (p.GetValue(this) != null) 
+                    {
+                        if (p.Name == "ZIndex" && (int) p.GetValue(this) == 0)
+                        {
+                            continue;
+                        }
+                        if (p.Name == "WaitTime" && (float) p.GetValue(this) == 0.0f)
+                        {
+                            continue;
+                        }
+                        if (p.Name == "SpriteMirrored" && (bool) p.GetValue(this) == false)
+                        {
+                            continue;
+                        }
                         sb.AppendLine(p.Name + ": " + p.GetValue(this));
-                   // }
+                    }
                 }
                 sb.AppendLine("}");
                 return sb.ToString();

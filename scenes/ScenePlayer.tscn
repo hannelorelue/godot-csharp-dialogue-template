@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ScenePlayer.cs" id="1_822ds"]
 [ext_resource type="PackedScene" uid="uid://d2kbont4tme4j" path="res://scenes/CharacterDisplayer.tscn" id="2_cnnrr"]
-[ext_resource type="PackedScene" uid="uid://ccypfdl5s06e1" path="res://scenes/TextBox.tscn" id="3_brdqu"]
+[ext_resource type="PackedScene" uid="uid://dgq3xm3gx1yxn" path="res://scenes/TextBox.tscn" id="3_brdqu"]
 
 [sub_resource type="Animation" id="1"]
 length = 0.001
@@ -65,6 +65,15 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_822ds")
+
+[node name="BackgroundColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1

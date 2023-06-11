@@ -1,6 +1,6 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://unxtpgxp8f3q"]
+[gd_resource type="Theme" load_steps=6 format=3]
 
-[ext_resource type="FontFile" uid="uid://ddqglq67wlyoq" path="res://assets/Montserrat-ExtraBold.ttf" id="1_5exnw"]
+[ext_resource type="FontFile" uid="uid://ddqglq67wlyoq" path="res://assets/MontserratExtraBold.ttf" id="1_5exnw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jfhki"]
 bg_color = Color(0.321569, 0.321569, 0.321569, 1)

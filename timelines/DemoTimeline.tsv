@@ -17,6 +17,6 @@ Eventid	Next	ParentId	Line	ChoiceLabel	Choices	Character	Condition	Animation	Exp
 15	16		I told you not to go in there!			Godette		enter	Anger									
 16	18		Come this way!			Godette			Annoyance									
 17	18			Go left														
-18	19		On the left is a stair case 															
+18	19		On the left is a stair case 			Godette			Neutral									
 19	20		You follow Godette down															
 20	-1																	fadeOut

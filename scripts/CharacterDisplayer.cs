@@ -29,7 +29,7 @@ namespace Honeycodes.Dialogue
             {OUTER_RIGHT, null}
         };
 
-        private float animationLength = 0.7f;
+        private float _animationLength = 0.7f;
 
         private Tween _tween;
         private Sprite2D _outerLeftSprite;
@@ -45,14 +45,9 @@ namespace Honeycodes.Dialogue
             _middleSprite = GetNode<Sprite2D >("Middle");
             _rightSprite = GetNode<Sprite2D >("Right");
             _outerRightSprite = GetNode<Sprite2D >("OuterRight");
-
-
-            // ResourceDB resourceDB = (ResourceDB) GetNode("/root/ResourceDB");
-            // Character Godette = resourceDB.GetCharacter("Godette");
-            // DisplayAsync(Godette, "middle", spriteScale: 0.3, animation: "enter");
         }
 
-        public async Task DisplayAsync(Character character, string side, string expression = "", string animation = "", float spriteScale = 0 , bool isMirrored = false, int spriteZIndex = 0)
+        public async Task DisplayAsync(Character character, string postition, string expression = "", string animation = "", float spriteScale = 0 , bool isMirrored = false, int spriteZIndex = 0)
         {
             
             Sprite2D sprite = null;
@@ -80,10 +75,10 @@ namespace Honeycodes.Dialogue
             }
             else
             {
-                _displayed[side] = character;
+                _displayed[postition] = character;
             }
 
-            switch (side)
+            switch (postition)
             {
                 case OUTER_LEFT:
                     sprite = _outerLeftSprite;
@@ -105,20 +100,21 @@ namespace Honeycodes.Dialogue
             if (sprite != null)
             {
                 sprite.Texture = character.GetImage(expression);
+                sprite.Position += character.Offset;
                 sprite.FlipH = isMirrored;
                 sprite.ZIndex = spriteZIndex;
                 if (spriteScale != 0) 
                 {
                     sprite.Scale = new Vector2((float) spriteScale, (float) spriteScale);
                 }
-
+                GD.Print(animation);
                 switch (animation)
                 {
                     case "enter":
-                        await EnterAsync(side, sprite);
+                        await EnterAsync(postition, sprite);
                         break;
                     case "leave":
-                        await LeaveAsync(side, sprite);
+                        await LeaveAsync(postition, sprite);
                         break;
                 }
             }
@@ -144,8 +140,8 @@ namespace Honeycodes.Dialogue
             Vector2 end = sprite.Position;
 
             _tween = GetTree().CreateTween();
-            _tween.TweenProperty(sprite, "position", end, animationLength).SetTrans(Tween.TransitionType.Quint).From(start).SetEase(Tween.EaseType.Out);
-            _tween.Parallel().TweenProperty(sprite, "modulate", WHITE, animationLength * 0.2f).SetTrans(Tween.TransitionType.Quint).From(COLOR_WHITE_TRANSPARENT).SetEase(Tween.EaseType.Out);
+            _tween.TweenProperty(sprite, "position", end, _animationLength).SetTrans(Tween.TransitionType.Quint).From(start).SetEase(Tween.EaseType.Out);
+            _tween.Parallel().TweenProperty(sprite, "modulate", WHITE, _animationLength * 0.2f).SetTrans(Tween.TransitionType.Quint).From(COLOR_WHITE_TRANSPARENT).SetEase(Tween.EaseType.Out);
             await ToSignal(_tween, "finished");
         }
 
@@ -172,8 +168,8 @@ namespace Honeycodes.Dialogue
             Vector2 end = sprite.Position + new Vector2(offset, 0.0f);
             
             _tween = GetTree().CreateTween();
-            _tween.TweenProperty(sprite, "position", end, animationLength).SetTrans(Tween.TransitionType.Quint).From(0).SetEase(Tween.EaseType.Out);
-            _tween.Parallel().TweenProperty(sprite, "modulate", COLOR_WHITE_TRANSPARENT, animationLength * 0.5f).SetTrans(Tween.TransitionType.Linear).From( WHITE).SetEase(Tween.EaseType.Out);
+            _tween.TweenProperty(sprite, "position", end, _animationLength).SetTrans(Tween.TransitionType.Quint).From(start).SetEase(Tween.EaseType.Out);
+            _tween.Parallel().TweenProperty(sprite, "modulate", COLOR_WHITE_TRANSPARENT, _animationLength * 0.5f).SetTrans(Tween.TransitionType.Linear).From( WHITE).SetEase(Tween.EaseType.Out);
             await ToSignal(_tween, "finished");
         }
 

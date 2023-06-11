@@ -21,14 +21,18 @@ namespace Honeycodes.Dialogue
         public string DefaultImage { get; set; } = "neutral";
 
         [Export]
+        public Vector2 Offset { get; set; } = Vector2.Zero;
+
+
+        [Export]
         public Godot.Collections.Dictionary<string, Texture2D> Images {get; set; } = new Godot.Collections.Dictionary<string, Texture2D> {
             ["neutral"] = null
         } ;
 
         
-        public Character() : this(null, null, null, 0, null, null) {}
+        public Character() : this(null, null, null, 0, null, null, Vector2.Zero) {}
 
-        public Character (string id , string displayName , string bio, int age, string defaultImage , Godot.Collections.Dictionary<string, Texture2D> images )
+        public Character (string id , string displayName , string bio, int age, string defaultImage, Godot.Collections.Dictionary<string, Texture2D> images, Vector2 offset )
         {
             Id = id;
             DisplayName = displayName;
@@ -36,6 +40,7 @@ namespace Honeycodes.Dialogue
             Age = age;
             DefaultImage = defaultImage;
             Images = images;
+            Offset  = offset;
         }
 
         public Texture2D GetImage(string Expression) 

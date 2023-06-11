@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b5e3pd2lbbb53"]
+
+[ext_resource type="Texture2D" uid="uid://ba8gltvsflybf" path="res://assets/TwistedHallway.png" id="1_hu5e7"]
+[ext_resource type="Script" path="res://scripts/Background.cs" id="2_txunu"]
+
+[resource]
+script = ExtResource("2_txunu")
+Id = "TwistedHallway"
+Texture = ExtResource("1_hu5e7")

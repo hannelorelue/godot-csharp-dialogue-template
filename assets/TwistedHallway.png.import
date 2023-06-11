@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vxb3ql1a813n"
-path="res://.godot/imported/Dani.png-074f376d76a9d56742a4e05a392f4218.ctex"
+uid="uid://ba8gltvsflybf"
+path="res://.godot/imported/TwistedHallway.png-8b0be9bcbf37f139d9d64d06e7f1fb87.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Dani.png"
-dest_files=["res://.godot/imported/Dani.png-074f376d76a9d56742a4e05a392f4218.ctex"]
+source_file="res://assets/TwistedHallway.png"
+dest_files=["res://.godot/imported/TwistedHallway.png-8b0be9bcbf37f139d9d64d06e7f1fb87.ctex"]
 
 [params]
 

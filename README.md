@@ -44,4 +44,4 @@ TimelineEvents can be expanded and restructured depending on your needs. Here ar
 
 ## Sample Assets
 
-Godett sprites by [shatteredreality](https://shatteredreality.itch.io/); original design by [Andrea Calabrò](https://github.com/godotengine/godot-design/tree/master/godette) under a Creative Commons Attribution 4.0 International Public License.
+Godette sprites by [shatteredreality](https://shatteredreality.itch.io/); original design by [Andrea Calabrò](https://github.com/godotengine/godot-design/tree/master/godette) under a Creative Commons Attribution 4.0 International Public License.

@@ -3,13 +3,15 @@ using System;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
-using System.Reflection;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using System.Globalization;
 
 namespace Honeycodes.Dialogue
 {
+    /// <summary>
+    /// Class <c>Timeline</c> loads dialogue data from tsv and json.
+    /// </summary>
     public class Timeline 
     {
         private const string TIMELINE_DIRECTORY = "timelines/";
@@ -87,7 +89,6 @@ namespace Honeycodes.Dialogue
                             break;
 
                             case "Scale":
-                            case "WaitTime":
                             float f;
                             success = float.TryParse(columns[j], NumberStyles.Float, CultureInfo.CreateSpecificCulture("en-US"), out f);
                 
@@ -122,17 +123,17 @@ namespace Honeycodes.Dialogue
         return numbers;
     }
         
-
-        public class TimelineEvent
+    /// <summary>
+    /// Class <c>TimelineEvent</c> represents an event in a scene
+    /// </summary>
+    public class TimelineEvent
         {
             public int Next { get; set; } = 0;
-            public int ParentId { get; set; } = 0;
             public string Line { get; set; } = null;
             public List<int> Choices { get; set; } = null;
             public string ChoiceLabel { get; set; } = null;
 
             public string Character { get; set; } = null;
-            public string Condition { get; set; } = null;
             public string Animation { get; set; } = null;
             public string Expression { get; set; } = null;
             public string Position { get; set; } = null;
@@ -141,14 +142,8 @@ namespace Honeycodes.Dialogue
             public int ZIndex { get; set; } = 0;
             public float Scale { get; set; } = 1f;
 
-            public string Action { get; set; } = null;
             public string ChangeBackground { get; set; } = null;
-            public string ChangeMusic { get; set; } = null;
-            public string AudioEvent { get; set; } = null;
-            public string ThemeChange { get; set; } = null;
-            public float WaitTime { get; set; }  = 0.0f;
             public string Transition { get; set; } = null;
-            public string ChangeTimeline { get; set; } = null;
 
 
             public bool Has(string propertyName)
@@ -197,10 +192,6 @@ namespace Honeycodes.Dialogue
                     if (p.GetValue(this) != null) 
                     {
                         if (p.Name == "ZIndex" && (int) p.GetValue(this) == 0)
-                        {
-                            continue;
-                        }
-                        if (p.Name == "WaitTime" && (float) p.GetValue(this) == 0.0f)
                         {
                             continue;
                         }

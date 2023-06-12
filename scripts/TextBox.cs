@@ -27,7 +27,7 @@ namespace Honeycodes.Dialogue
 		private string _bbcodeText = "";
 
 		private RichTextLabel _richTextLabel;
-		private NameLableAnimations _nameLabel;
+		private NameLabel _nameLabel;
 		private NameBackground _nameBackground ;
 		private Control _blinkingArrow;
 		private Tween _tween;
@@ -36,12 +36,11 @@ namespace Honeycodes.Dialogue
 
 		int choice = 0;
 		
-		// Called when the node enters the scene tree for the first time.
 		public async override void _Ready()
 		{
 			//Hide();
 			_richTextLabel = GetNode<RichTextLabel>("RichTextLabel");
-			_nameLabel = GetNode<NameLableAnimations>("NameBackground/NameLabel");
+			_nameLabel = GetNode<NameLabel>("NameBackground/NameLabel");
 			_nameBackground = GetNode<NameBackground>("NameBackground");
 			_blinkingArrow = GetNode<Control>("RichTextLabel/BlinkingArrow");
 			_aniPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -52,9 +51,6 @@ namespace Honeycodes.Dialogue
 			_richTextLabel.Text = "";
 			_richTextLabel.VisibleCharacters  = 0;
 			_choiceContainer.ChoiceMade += OnChoiceSelectorChoiceMade;
-			// await FadeInAsync();
-			// await DisplayAsync("Hello! My name is Sophia! How are you?", "Sophia", 0);
-			// await DisplayAsync("Where do you what to go?", "Sophia");
 		}
 
 
@@ -94,8 +90,6 @@ namespace Honeycodes.Dialogue
 				DisplaySpeed = speed;
 				break;
 			}
-
-			GD.Print(characterName);
 
 			if (characterName != "")
 			{

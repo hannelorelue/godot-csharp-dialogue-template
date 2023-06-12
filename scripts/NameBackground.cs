@@ -9,22 +9,15 @@ namespace Honeycodes.Dialogue
 	{
 		private readonly Color COLOR_WHITE_TRANSPARENT = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
-		// Duration of the fade-in animation in seconds.
-		// The disappear animation is twice as short.
 		public float appearDuration = 0.2f;
 
-		// Here, we create a Tween node.
 		private Tween _tween;
-		// Called when the node enters the scene tree for the first time.
+
 		public override void _Ready()
 		{
 			Modulate = COLOR_WHITE_TRANSPARENT;
 		}
 
-		// Called every frame. 'delta' is the elapsed time since the previous frame.
-		public override void _Process(double delta)
-		{
-		}
 
 		public async Task AppearAsync()
 		{	

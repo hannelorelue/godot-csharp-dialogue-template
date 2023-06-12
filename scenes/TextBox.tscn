@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dgq3xm3gx1yxn"]
+[gd_scene load_steps=14 format=3 uid="uid://7iua08fklqej"]
 
 [ext_resource type="Script" path="res://scripts/TextBox.cs" id="1_cwc2o"]
 [ext_resource type="Theme" path="res://themes/DefaultTheme.tres" id="1_ujse2"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bncnwitqhcte" path="res://assets/arrow.png" id="3_gjgox"]
 [ext_resource type="Texture2D" uid="uid://bk86dfvs58sua" path="res://assets/CharacterNameBox.png" id="4_xpkf3"]
 [ext_resource type="Script" path="res://scripts/NameBackground.cs" id="5_1em1v"]
-[ext_resource type="Script" path="res://scripts/NameLableAnimations.cs" id="5_holi7"]
+[ext_resource type="Script" path="res://scripts/NameLabel.cs" id="6_4gmr4"]
 
 [sub_resource type="Gradient" id="Gradient_gjp8h"]
 colors = PackedColorArray(0, 0, 0, 1, 0.168627, 0.168627, 0.168627, 0.768627)
@@ -215,7 +215,7 @@ theme_override_font_sizes/font_size = 44
 text = "Name here"
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("5_holi7")
+script = ExtResource("6_4gmr4")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 modulate = Color(1, 1, 1, 0)

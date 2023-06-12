@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace Honeycodes.Dialogue
 {
+    /// <summary>
+    /// Class <c>ResourceDB</c> loads custom resources. 
+    /// </summary>
     public partial class ResourceDB : Node
     {
         private const string NARRATOR_ID = "Narrator";
@@ -22,14 +25,14 @@ namespace Honeycodes.Dialogue
             return _characters.ContainsKey(characterId) ? _characters[characterId] : null;
         }
 
-        public Background GetBackground(string backgroundId)
-        {
-            return _backgrounds.ContainsKey(backgroundId) ? _backgrounds[backgroundId] : null;
-        }
-
         public Character GetNarrator()
         {
             return GetCharacter(NARRATOR_ID);
+        }
+
+        public Background GetBackground(string backgroundId)
+        {
+            return _backgrounds.ContainsKey(backgroundId) ? _backgrounds[backgroundId] : null;
         }
 
         private Dictionary<string, Character> LoadCharacters(string directoryPath) 

@@ -5,11 +5,12 @@ using System.Collections.Generic;
 
 namespace Honeycodes.Dialogue
 {
+    /// <summary>
+    /// Class <c>ScenePlayer</c> displays and manages a dialogue scene.
+    /// </summary>
     public partial class ScenePlayer : Node
     {
 
-        [Signal]
-		public delegate void ChangeTimelineEventHandler(string Path);
         [Signal]
 		public delegate void TimelineFinishedEventHandler(string Path);
 
@@ -43,11 +44,9 @@ namespace Honeycodes.Dialogue
         }
 
 
-        private Dictionary<int, Timeline.TimelineEvent> LoadTimeline(string Path) 
-        {
-            return Timeline.LoadFromJson(Path);
-        }
-
+        /// <summary>
+        /// Method <c>RunScene</c> takes a Dictionary SceneData and plays the scene.
+        /// </summary>
         public async Task RunScene(Dictionary<int, Timeline.TimelineEvent> SceneData)
         {
             // Scene data has to start at 0!
@@ -109,11 +108,7 @@ namespace Honeycodes.Dialogue
                             await disappearAsync();
                             break;
                     }
-                } else if (currentEvent.Has("ChangeTimeline"))
-                {
-                    EmitSignal("ChangeTimeline");
-                    return;
-                }
+                } 
             }
             EmitSignal("TimelineFinished");
         }

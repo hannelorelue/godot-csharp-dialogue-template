@@ -3,6 +3,9 @@ using System;
 
 namespace Honeycodes.Dialogue
 {
+    /// <summary>
+    /// Class <c>Character</c> is a custom resource.
+    /// </summary>
     public partial class Character : Resource
     {
         [Export]

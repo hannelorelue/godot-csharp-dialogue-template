@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ScenePlayer.cs" id="1_822ds"]
 [ext_resource type="PackedScene" uid="uid://d2kbont4tme4j" path="res://scenes/CharacterDisplayer.tscn" id="2_cnnrr"]
-[ext_resource type="PackedScene" uid="uid://dgq3xm3gx1yxn" path="res://scenes/TextBox.tscn" id="3_brdqu"]
+[ext_resource type="PackedScene" uid="uid://7iua08fklqej" path="res://scenes/TextBox.tscn" id="3_brdqu"]
 
 [sub_resource type="Animation" id="1"]
 length = 0.001

@@ -1,22 +1,22 @@
-Eventid	Next	ParentId	Line	ChoiceLabel	Choices	Character	Condition	Animation	Expression	Position	AnimationLength	SpriteMirrored	ZIndex	Scale	Action	ChangeBackground	ChangeTimeline	Transition
-0	1															Hallway		fadeIn
-1	2					Godette		enter	Neutral	right				0.3				
-2	3		Oh, hi! 			Godette												
-3	4		This is not the best time to drop in. 			Godette												
-4	5		A crash some where in the building															
-5			We should leave		[6, 17]	Godette			Neutral									
-6	7			Go right														
-7	8		On the right is a door. 															
-8			Don't open that!		[9, 17]	Godette			Surprised									
-9	10			Open it anyway														
-10	11					Godette		leave										
-11	12		This hallway makes your skin crawl.													TwistedHallway		
-12	13		You take a step forward without wanting to															
-13	14		...															
-14	15		You are yanked back													Hallway		
-15	16		I told you not to go in there!			Godette		enter	Anger									
-16	18		Come this way!			Godette			Annoyance									
-17	18			Go left														
-18	19		On the left is a stair case 			Godette			Neutral									
-19	20		You follow Godette down															
-20	-1																	fadeOut
+Eventid	Next	Line	ChoiceLabel	Choices	Character	Animation	Expression	Position	AnimationLength	SpriteMirrored	ZIndex	Scale	ChangeBackground	Transition
+0	1												Hallway	fadeIn
+1	2				Godette	enter	Neutral	right				0.3		
+2	3	Oh, hi! 			Godette									
+3	4	This is not the best time to drop in. 			Godette									
+4	5	A crash some where in the building												
+5		We should leave		[6, 17]	Godette		Neutral							
+6	7		Go right											
+7	8	On the right is a door. 												
+8		Don't open that!		[9, 17]	Godette		Surprised							
+9	10		Open it anyway											
+10	11				Godette	leave								
+11	12	This hallway makes your skin crawl.											TwistedHallway	
+12	13	You take a step forward without wanting to												
+13	14	...												
+14	15	You are yanked back											Hallway	
+15	16	I told you not to go in there!			Godette	enter	Anger							
+16	18	Come this way!			Godette		Annoyance							
+17	18		Go left											
+18	19	On the left is a stair case 												
+19	20	You follow Godette down												
+20	-1													fadeOut

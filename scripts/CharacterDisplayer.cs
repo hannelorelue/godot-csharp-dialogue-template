@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Honeycodes.Dialogue
 {
+    /// <summary>
+    /// Class <c>CharacterDisplayer</c> manages display and animation of character sprites.
+    /// </summary>
     public partial class CharacterDisplayer : Node2D
     {
         [Signal]
@@ -107,7 +110,6 @@ namespace Honeycodes.Dialogue
                 {
                     sprite.Scale = new Vector2((float) spriteScale, (float) spriteScale);
                 }
-                GD.Print(animation);
                 switch (animation)
                 {
                     case "enter":
